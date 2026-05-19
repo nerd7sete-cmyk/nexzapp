@@ -1,0 +1,26 @@
+{
+  "name": "zap-painel",
+  "version": "1.0.0",
+  "main": "main.js",
+  "bin": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "electron": "electron ."
+  },
+  "dependencies": {
+    "express": "^4.22.2",
+    "puppeteer": "^25.0.4",
+    "qrcode": "^1.5.4",
+    "qrcode-terminal": "^0.12.0",
+    "socket.io": "^4.8.3",
+    "whatsapp-web.js": "^1.34.7"
+  },
+  "pkg": {
+    "targets": [
+      "node18-win-x64"
+    ]
+  },
+  "devDependencies": {
+    "electron": "^42.0.1"
+  }
+}
