@@ -1,0 +1,1405 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+/>
+
+<title>NexZapp • Nova Campanha</title>
+
+<link
+href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
+rel="stylesheet"
+/>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet"
+/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+:root{
+
+--green:#22c55e;
+--green2:#16a34a;
+
+--bg:#020202;
+
+--card:#080808;
+
+--muted:#6b7280;
+
+--border:
+rgba(255,255,255,.05);
+
+}
+
+html,
+body{
+
+width:100%;
+overflow-x:hidden;
+
+background:#020202;
+
+font-family:'Inter',sans-serif;
+
+color:#fff;
+
+}
+
+body{
+
+min-height:100vh;
+
+padding:
+calc(16px + env(safe-area-inset-top))
+16px
+calc(20px + env(safe-area-inset-bottom));
+
+background:
+
+radial-gradient(
+circle at top left,
+rgba(34,197,94,.05),
+transparent 28%
+),
+
+radial-gradient(
+circle at bottom right,
+rgba(34,197,94,.04),
+transparent 30%
+),
+
+#020202;
+
+}
+
+.container{
+
+width:100%;
+max-width:1700px;
+
+margin:auto;
+
+}
+
+/* TOP */
+
+.top{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+gap:18px;
+
+margin-bottom:24px;
+
+flex-wrap:wrap;
+
+}
+
+.title{
+
+display:flex;
+align-items:center;
+
+gap:16px;
+
+}
+
+.title-icon{
+
+width:70px;
+height:70px;
+
+border-radius:22px;
+
+background:
+rgba(255,255,255,.03);
+
+border:
+1px solid rgba(255,255,255,.05);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+.title-icon i{
+
+font-size:30px;
+
+color:var(--green);
+
+}
+
+.title h1{
+
+font-size:36px;
+
+font-weight:900;
+
+letter-spacing:-1px;
+
+}
+
+.title p{
+
+margin-top:5px;
+
+font-size:13px;
+
+color:var(--muted);
+
+}
+
+.top-buttons{
+
+display:flex;
+
+gap:12px;
+
+flex-wrap:wrap;
+
+}
+
+/* BUTTONS */
+
+.btn{
+
+height:54px;
+
+padding:0 22px;
+
+border:none;
+
+border-radius:18px;
+
+font-size:13px;
+font-weight:800;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+gap:10px;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+.btn:hover{
+
+transform:
+translateY(-2px);
+
+}
+
+.btn-primary{
+
+background:
+
+linear-gradient(
+135deg,
+var(--green),
+var(--green2)
+);
+
+color:#fff;
+
+box-shadow:
+0 10px 30px rgba(34,197,94,.15);
+
+}
+
+.btn-dark{
+
+background:#0b0b0b;
+
+border:
+1px solid rgba(255,255,255,.05);
+
+color:#fff;
+
+}
+
+/* GRID */
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+1fr 420px;
+
+gap:20px;
+
+}
+
+/* CARD */
+
+.card{
+
+background:#080808;
+
+border:
+1px solid rgba(255,255,255,.05);
+
+border-radius:30px;
+
+padding:24px;
+
+}
+
+/* HEADER */
+
+.card-header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:24px;
+
+gap:12px;
+
+flex-wrap:wrap;
+
+}
+
+.card-header h2{
+
+font-size:24px;
+
+font-weight:900;
+
+}
+
+.badge{
+
+padding:10px 14px;
+
+border-radius:14px;
+
+background:
+rgba(34,197,94,.08);
+
+border:
+1px solid rgba(34,197,94,.12);
+
+color:#86efac;
+
+font-size:11px;
+
+font-weight:800;
+
+}
+
+/* INPUTS */
+
+.input-group{
+
+margin-bottom:20px;
+
+}
+
+.input-group label{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:10px;
+
+font-size:13px;
+
+font-weight:700;
+
+}
+
+.input-group label span{
+
+font-size:11px;
+
+color:#6b7280;
+
+}
+
+.input,
+.textarea{
+
+width:100%;
+
+border:none;
+outline:none;
+
+background:#050505;
+
+border:
+1px solid rgba(255,255,255,.05);
+
+border-radius:20px;
+
+color:#fff;
+
+font-family:'Inter',sans-serif;
+
+transition:.2s;
+
+}
+
+.input{
+
+height:58px;
+
+padding:0 18px;
+
+font-size:14px;
+
+}
+
+.textarea{
+
+min-height:180px;
+
+padding:18px;
+
+font-size:14px;
+
+line-height:1.7;
+
+resize:none;
+
+overflow:hidden;
+
+}
+
+.input:focus,
+.textarea:focus{
+
+border-color:
+rgba(34,197,94,.18);
+
+box-shadow:
+0 0 0 4px rgba(34,197,94,.06);
+
+}
+
+/* UPLOAD */
+
+.upload{
+
+background:#050505;
+
+border:
+1px dashed rgba(255,255,255,.08);
+
+border-radius:24px;
+
+padding:24px;
+
+text-align:center;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+.upload:hover{
+
+border-color:
+rgba(34,197,94,.15);
+
+}
+
+.upload i{
+
+font-size:42px;
+
+color:var(--green);
+
+margin-bottom:12px;
+
+}
+
+.upload h3{
+
+font-size:15px;
+
+margin-bottom:8px;
+
+}
+
+.upload p{
+
+font-size:12px;
+
+line-height:1.6;
+
+color:#6b7280;
+
+margin-bottom:16px;
+
+}
+
+.upload input{
+
+display:none;
+
+}
+
+.upload-btn{
+
+display:inline-flex;
+align-items:center;
+justify-content:center;
+
+gap:8px;
+
+height:44px;
+
+padding:0 18px;
+
+border-radius:14px;
+
+background:
+rgba(34,197,94,.08);
+
+border:
+1px solid rgba(34,197,94,.12);
+
+color:#86efac;
+
+font-size:12px;
+
+font-weight:800;
+
+}
+
+/* PREVIEW */
+
+.preview-box{
+
+background:#050505;
+
+border:
+1px solid rgba(255,255,255,.05);
+
+border-radius:26px;
+
+overflow:hidden;
+
+margin-top:20px;
+
+display:none;
+
+}
+
+.preview-image{
+
+width:100%;
+height:240px;
+
+background:#111;
+
+overflow:hidden;
+
+}
+
+.preview-image img{
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+}
+
+.preview-content{
+
+padding:18px;
+
+}
+
+.preview-content h3{
+
+font-size:17px;
+
+margin-bottom:10px;
+
+}
+
+.preview-content p{
+
+font-size:13px;
+
+line-height:1.7;
+
+color:#9ca3af;
+
+white-space:pre-wrap;
+
+word-break:break-word;
+
+}
+
+/* RIGHT */
+
+.right{
+
+display:flex;
+flex-direction:column;
+
+gap:18px;
+
+}
+
+.mini{
+
+background:#080808;
+
+border:
+1px solid rgba(255,255,255,.05);
+
+border-radius:24px;
+
+padding:20px;
+
+}
+
+.mini-top{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:16px;
+
+}
+
+.mini-top i{
+
+font-size:22px;
+
+color:var(--green);
+
+}
+
+.mini h2{
+
+font-size:34px;
+
+font-weight:900;
+
+}
+
+.mini p{
+
+margin-top:6px;
+
+font-size:12px;
+
+color:#6b7280;
+
+}
+
+/* TIPS */
+
+.tips{
+
+display:flex;
+flex-direction:column;
+
+gap:14px;
+
+}
+
+.tip{
+
+display:flex;
+align-items:flex-start;
+
+gap:12px;
+
+padding:14px;
+
+border-radius:18px;
+
+background:#050505;
+
+border:
+1px solid rgba(255,255,255,.04);
+
+}
+
+.tip i{
+
+font-size:18px;
+
+color:var(--green);
+
+margin-top:2px;
+
+}
+
+.tip h4{
+
+font-size:13px;
+
+margin-bottom:4px;
+
+}
+
+.tip p{
+
+font-size:11px;
+
+line-height:1.6;
+
+color:#6b7280;
+
+}
+
+/* RESPONSIVO */
+
+@media(max-width:1100px){
+
+.grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:700px){
+
+.title h1{
+
+font-size:30px;
+
+}
+
+.card{
+
+padding:18px;
+
+border-radius:24px;
+
+}
+
+.top-buttons{
+
+width:100%;
+
+}
+
+.btn{
+
+flex:1;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- TOPO -->
+
+<div class="top">
+
+<div class="title">
+
+<div class="title-icon">
+
+<i class="ri-add-circle-fill"></i>
+
+</div>
+
+<div>
+
+<h1>
+Nova Campanha
+</h1>
+
+<p>
+Crie campanhas profissionais para disparos inteligentes
+</p>
+
+</div>
+
+</div>
+
+<div class="top-buttons">
+
+<button
+class="btn btn-dark"
+onclick="voltar()"
+>
+
+<i class="ri-arrow-left-line"></i>
+
+Voltar
+
+</button>
+
+<button
+class="btn btn-primary"
+onclick="salvarCampanha()"
+>
+
+<i class="ri-save-line"></i>
+
+Salvar Campanha
+
+</button>
+
+</div>
+
+</div>
+
+<!-- GRID -->
+
+<div class="grid">
+
+<!-- LEFT -->
+
+<div class="card">
+
+<div class="card-header">
+
+<h2>
+Criar campanha
+</h2>
+
+<div class="badge">
+PRO EDITOR
+</div>
+
+</div>
+
+<!-- NOME -->
+
+<div class="input-group">
+
+<label>
+
+<span>
+Nome da campanha
+</span>
+
+<span id="nameCount">
+0 caracteres
+</span>
+
+</label>
+
+<input
+type="text"
+class="input"
+id="nome"
+placeholder="Ex: Oferta VIP"
+/>
+
+</div>
+
+<!-- MENSAGEM -->
+
+<div class="input-group">
+
+<label>
+
+<span>
+Mensagem
+</span>
+
+<span id="messageCount">
+0 caracteres
+</span>
+
+</label>
+
+<textarea
+class="textarea"
+id="mensagem"
+placeholder="Digite sua mensagem..."
+></textarea>
+
+</div>
+
+<!-- UPLOAD -->
+
+<label
+class="upload"
+for="imagem"
+>
+
+<i class="ri-image-add-line"></i>
+
+<h3>
+Adicionar imagem
+</h3>
+
+<p>
+Adicione uma mídia para deixar sua campanha mais profissional.
+</p>
+
+<div class="upload-btn">
+
+<i class="ri-upload-cloud-2-line"></i>
+
+Selecionar imagem
+
+</div>
+
+<input
+type="file"
+id="imagem"
+accept="image/*"
+/>
+
+</label>
+
+<!-- PREVIEW -->
+
+<div
+class="preview-box"
+id="previewBox"
+>
+
+<div class="preview-image">
+
+<img
+id="previewImg"
+>
+
+</div>
+
+<div class="preview-content">
+
+<h3 id="previewTitle">
+Nova campanha
+</h3>
+
+<p id="previewText">
+Sua mensagem aparecerá aqui...
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="right">
+
+<div class="mini">
+
+<div class="mini-top">
+
+<strong>
+Caracteres
+</strong>
+
+<i class="ri-text"></i>
+
+</div>
+
+<h2 id="totalChars">
+0
+</h2>
+
+<p>
+Total digitado
+</p>
+
+</div>
+
+<div class="mini">
+
+<div class="mini-top">
+
+<strong>
+Imagem
+</strong>
+
+<i class="ri-image-line"></i>
+
+</div>
+
+<h2 id="mediaStatus">
+OFF
+</h2>
+
+<p>
+Status da mídia
+</p>
+
+</div>
+
+<div class="mini">
+
+<div class="mini-top">
+
+<strong>
+Sistema
+</strong>
+
+<i class="ri-shield-check-line"></i>
+
+</div>
+
+<h2>
+PRO
+</h2>
+
+<p>
+Editor inteligente NexZapp
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="card-header">
+
+<h2>
+Dicas rápidas
+</h2>
+
+<div class="badge">
+PREMIUM
+</div>
+
+</div>
+
+<div class="tips">
+
+<div class="tip">
+
+<i class="ri-check-line"></i>
+
+<div>
+
+<h4>
+Mensagens objetivas
+</h4>
+
+<p>
+Campanhas curtas costumam performar melhor.
+</p>
+
+</div>
+
+</div>
+
+<div class="tip">
+
+<i class="ri-image-line"></i>
+
+<div>
+
+<h4>
+Use imagens
+</h4>
+
+<p>
+Imagens aumentam a atenção do cliente.
+</p>
+
+</div>
+
+</div>
+
+<div class="tip">
+
+<i class="ri-repeat-line"></i>
+
+<div>
+
+<h4>
+Diversifique
+</h4>
+
+<p>
+Crie várias campanhas para alternar no disparo.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ========================= */
+/* LIMPAR EDIÇÃO ANTIGA */
+/* ========================= */
+
+if(
+!localStorage.getItem(
+'editarCampanha'
+)
+){
+
+localStorage.removeItem(
+'editarCampanha'
+);
+
+}
+
+/* STORAGE */
+
+let campanhas = JSON.parse(
+
+localStorage.getItem(
+'campanhasNexZapp'
+)
+
+) || [];
+
+/* ELEMENTOS */
+
+const nome =
+document.getElementById(
+'nome'
+);
+
+const mensagem =
+document.getElementById(
+'mensagem'
+);
+
+const imagem =
+document.getElementById(
+'imagem'
+);
+
+/* AUTO HEIGHT */
+
+function autoResize(){
+
+mensagem.style.height =
+'auto';
+
+mensagem.style.height =
+mensagem.scrollHeight + 'px';
+
+}
+
+mensagem.addEventListener(
+'input',
+autoResize
+);
+
+/* CONTADORES */
+
+function atualizarContadores(){
+
+document
+.getElementById(
+'nameCount'
+)
+.innerText =
+nome.value.length +
+' caracteres';
+
+document
+.getElementById(
+'messageCount'
+)
+.innerText =
+mensagem.value.length +
+' caracteres';
+
+document
+.getElementById(
+'totalChars'
+)
+.innerText =
+
+nome.value.length +
+mensagem.value.length;
+
+}
+
+/* PREVIEW */
+
+function atualizarPreview(){
+
+document
+.getElementById(
+'previewTitle'
+)
+.innerText =
+
+nome.value ||
+'Nova campanha';
+
+document
+.getElementById(
+'previewText'
+)
+.innerText =
+
+mensagem.value ||
+'Sua mensagem aparecerá aqui...';
+
+}
+
+/* INPUTS */
+
+nome.addEventListener(
+'input',
+()=>{
+
+atualizarContadores();
+atualizarPreview();
+
+}
+);
+
+mensagem.addEventListener(
+'input',
+()=>{
+
+atualizarContadores();
+atualizarPreview();
+autoResize();
+
+}
+);
+
+/* IMAGEM */
+
+imagem.addEventListener(
+'change',
+async()=>{
+
+const file =
+imagem.files[0];
+
+if(!file) return;
+
+const base64 =
+await toBase64(file);
+
+document
+.getElementById(
+'previewImg'
+)
+.src = base64;
+
+document
+.getElementById(
+'previewBox'
+)
+.style.display =
+'block';
+
+document
+.getElementById(
+'mediaStatus'
+)
+.innerText =
+'ON';
+
+}
+);
+
+/* SALVAR */
+
+async function salvarCampanha(){
+
+const nomeValue =
+nome.value.trim();
+
+const mensagemValue =
+mensagem.value.trim();
+
+if(!nomeValue || !mensagemValue){
+
+alert(
+'Preencha os campos'
+);
+
+return;
+
+}
+
+let imagemBase64 = '';
+
+if(imagem.files[0]){
+
+imagemBase64 =
+await toBase64(
+imagem.files[0]
+);
+
+}
+
+campanhas.unshift({
+
+nome:
+nomeValue,
+
+mensagem:
+mensagemValue,
+
+imagem:
+imagemBase64,
+
+data:
+new Date().toLocaleDateString(
+'pt-BR'
+)
+
+});
+
+localStorage.setItem(
+
+'campanhasNexZapp',
+
+JSON.stringify(
+campanhas
+)
+
+);
+
+alert(
+'Campanha salva com sucesso'
+);
+
+/* LIMPA TUDO */
+
+nome.value = '';
+
+mensagem.value = '';
+
+imagem.value = '';
+
+document
+.getElementById(
+'previewBox'
+)
+.style.display =
+'none';
+
+document
+.getElementById(
+'mediaStatus'
+)
+.innerText =
+'OFF';
+
+atualizarContadores();
+atualizarPreview();
+autoResize();
+
+}
+
+/* BASE64 */
+
+function toBase64(file){
+
+return new Promise((resolve,reject)=>{
+
+const reader =
+new FileReader();
+
+reader.readAsDataURL(file);
+
+reader.onload = ()=>{
+
+resolve(reader.result);
+
+};
+
+reader.onerror = error=>{
+
+reject(error);
+
+};
+
+});
+
+}
+
+/* VOLTAR */
+
+function voltar(){
+
+try{
+
+const frame =
+window.top.document.getElementById(
+'frame'
+);
+
+if(frame){
+
+frame.src =
+'campanhas.html';
+
+return;
+
+}
+
+}catch(e){}
+
+window.location.href =
+'campanhas.html';
+
+}
+
+/* INIT */
+
+nome.value = '';
+
+mensagem.value = '';
+
+imagem.value = '';
+
+atualizarContadores();
+atualizarPreview();
+autoResize();
+
+</script>
+
+</body>
+</html>

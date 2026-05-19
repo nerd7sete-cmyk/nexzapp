@@ -1,0 +1,881 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+/>
+
+<title>Central NexZapp</title>
+
+<link
+href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
+rel="stylesheet"
+/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Inter","Segoe UI",sans-serif;
+}
+
+:root{
+
+--green:#22c55e;
+--green2:#16a34a;
+
+--bg:#020202;
+
+--card:#080808;
+
+--muted:#6b7280;
+
+--border:
+rgba(255,255,255,.05);
+
+}
+
+html{
+
+width:100%;
+height:100%;
+
+overflow-x:hidden;
+
+background:#020202;
+
+}
+
+body{
+
+width:100%;
+min-height:100vh;
+
+overflow-x:hidden;
+overflow-y:auto;
+
+-webkit-overflow-scrolling:touch;
+
+background:
+
+radial-gradient(
+circle at top left,
+rgba(34,197,94,.08),
+transparent 28%
+),
+
+radial-gradient(
+circle at bottom right,
+rgba(34,197,94,.05),
+transparent 32%
+),
+
+#020202;
+
+color:#fff;
+
+padding:
+calc(16px + env(safe-area-inset-top))
+16px
+calc(24px + env(safe-area-inset-bottom));
+
+}
+
+/* CONTAINER */
+
+.container{
+
+width:100%;
+max-width:920px;
+
+margin:auto;
+
+}
+
+/* HEADER */
+
+.header{
+
+display:flex;
+align-items:center;
+
+gap:14px;
+
+margin-bottom:22px;
+
+}
+
+.logo{
+
+width:58px;
+height:58px;
+
+border-radius:18px;
+
+background:
+
+linear-gradient(
+135deg,
+var(--green),
+var(--green2)
+);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+box-shadow:
+0 10px 30px rgba(34,197,94,.25);
+
+flex-shrink:0;
+
+}
+
+.logo i{
+
+font-size:26px;
+
+color:#fff;
+
+}
+
+.header-text{
+
+flex:1;
+
+min-width:0;
+
+}
+
+.header-text h1{
+
+font-size:28px;
+
+font-weight:900;
+
+letter-spacing:-1px;
+
+}
+
+.header-text p{
+
+margin-top:5px;
+
+font-size:12px;
+
+color:var(--muted);
+
+line-height:1.6;
+
+}
+
+/* GRID */
+
+.cards{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,minmax(0,1fr));
+
+gap:14px;
+
+}
+
+/* CARD */
+
+.card{
+
+position:relative;
+
+background:
+
+linear-gradient(
+180deg,
+#0b0b0b,
+#070707
+);
+
+border:
+1px solid rgba(255,255,255,.05);
+
+border-radius:24px;
+
+padding:18px;
+
+cursor:pointer;
+
+transition:.18s ease;
+
+overflow:hidden;
+
+}
+
+.card:hover{
+
+transform:
+translateY(-3px);
+
+border-color:
+rgba(34,197,94,.14);
+
+box-shadow:
+
+0 14px 35px rgba(0,0,0,.45),
+
+0 0 25px rgba(34,197,94,.05);
+
+}
+
+.card:active{
+
+transform:scale(.985);
+
+}
+
+/* GLOW */
+
+.glow{
+
+position:absolute;
+
+width:140px;
+height:140px;
+
+border-radius:50%;
+
+background:#22c55e;
+
+opacity:.05;
+
+filter:blur(60px);
+
+top:-60px;
+right:-60px;
+
+pointer-events:none;
+
+}
+
+/* TOP */
+
+.top{
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+margin-bottom:16px;
+
+gap:10px;
+
+}
+
+.icon{
+
+width:52px;
+height:52px;
+
+border-radius:16px;
+
+background:
+
+linear-gradient(
+135deg,
+var(--green),
+var(--green2)
+);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+box-shadow:
+0 10px 20px rgba(34,197,94,.18);
+
+}
+
+.icon i{
+
+font-size:22px;
+
+color:#fff;
+
+}
+
+.badge{
+
+padding:7px 10px;
+
+border-radius:10px;
+
+background:
+rgba(34,197,94,.10);
+
+border:
+1px solid rgba(34,197,94,.12);
+
+font-size:10px;
+
+font-weight:800;
+
+color:#86efac;
+
+}
+
+/* TITLE */
+
+.card h2{
+
+font-size:20px;
+
+font-weight:900;
+
+margin-bottom:8px;
+
+letter-spacing:-0.5px;
+
+}
+
+.card p{
+
+font-size:12px;
+
+line-height:1.7;
+
+color:#7c7c84;
+
+margin-bottom:16px;
+
+}
+
+/* FEATURES */
+
+.features{
+
+display:flex;
+flex-direction:column;
+
+gap:8px;
+
+margin-bottom:16px;
+
+}
+
+.feature{
+
+display:flex;
+align-items:center;
+
+gap:9px;
+
+padding:10px 12px;
+
+background:#0d0d0d;
+
+border:
+1px solid rgba(255,255,255,.04);
+
+border-radius:14px;
+
+}
+
+.feature i{
+
+font-size:14px;
+
+color:var(--green);
+
+}
+
+.feature span{
+
+font-size:11px;
+
+color:#d1d5db;
+
+}
+
+/* STATS */
+
+.stats{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:10px;
+
+margin-bottom:18px;
+
+}
+
+.stat{
+
+background:#0d0d0d;
+
+border:
+1px solid rgba(255,255,255,.04);
+
+border-radius:14px;
+
+padding:12px;
+
+}
+
+.stat strong{
+
+display:block;
+
+font-size:17px;
+
+font-weight:900;
+
+margin-bottom:4px;
+
+}
+
+.stat span{
+
+font-size:10px;
+
+line-height:1.5;
+
+color:#6b7280;
+
+}
+
+/* FOOTER */
+
+.footer{
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+gap:12px;
+
+}
+
+.footer-left{
+
+display:flex;
+flex-direction:column;
+
+}
+
+.footer-left strong{
+
+font-size:12px;
+
+}
+
+.footer-left span{
+
+margin-top:4px;
+
+font-size:10px;
+
+color:#6b7280;
+
+}
+
+.arrow{
+
+width:46px;
+height:46px;
+
+border-radius:14px;
+
+background:
+
+linear-gradient(
+135deg,
+var(--green),
+var(--green2)
+);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+box-shadow:
+0 10px 25px rgba(34,197,94,.18);
+
+}
+
+.arrow i{
+
+font-size:18px;
+
+color:#fff;
+
+}
+
+/* MOBILE */
+
+@media(max-width:850px){
+
+.cards{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:600px){
+
+body{
+
+padding:
+calc(12px + env(safe-area-inset-top))
+12px
+calc(24px + env(safe-area-inset-bottom));
+
+}
+
+.header{
+
+align-items:flex-start;
+
+}
+
+.header-text h1{
+
+font-size:24px;
+
+}
+
+.card{
+
+padding:16px;
+
+border-radius:22px;
+
+}
+
+.card h2{
+
+font-size:18px;
+
+}
+
+.stats{
+
+grid-template-columns:1fr 1fr;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div class="logo">
+
+<i class="ri-send-plane-2-fill"></i>
+
+</div>
+
+<div class="header-text">
+
+<h1>
+Central NexZapp
+</h1>
+
+<p>
+Escolha o modo de disparo inteligente
+</p>
+
+</div>
+
+</div>
+
+<!-- CARDS -->
+
+<div class="cards">
+
+<!-- GRUPOS -->
+
+<div
+class="card"
+onclick="abrir('disparador.html')"
+>
+
+<div class="glow"></div>
+
+<div class="top">
+
+<div class="icon">
+
+<i class="ri-group-2-fill"></i>
+
+</div>
+
+<div class="badge">
+GRUPOS
+</div>
+
+</div>
+
+<h2>
+Disparo em Grupo
+</h2>
+
+<p>
+Envio automático para grupos com mídia, preview e proteção inteligente.
+</p>
+
+<div class="features">
+
+<div class="feature">
+
+<i class="ri-check-line"></i>
+
+<span>
+Imagem + texto
+</span>
+
+</div>
+
+<div class="feature">
+
+<i class="ri-check-line"></i>
+
+<span>
+Logs em tempo real
+</span>
+
+</div>
+
+<div class="feature">
+
+<i class="ri-check-line"></i>
+
+<span>
+Sistema humanizado
+</span>
+
+</div>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+
+<strong>
+25s-45s
+</strong>
+
+<span>
+Delay seguro
+</span>
+
+</div>
+
+<div class="stat">
+
+<strong>
+80+
+</strong>
+
+<span>
+Mensagens/hora
+</span>
+
+</div>
+
+</div>
+
+<div class="footer">
+
+<div class="footer-left">
+
+<strong>
+Sistema Premium
+</strong>
+
+<span>
+Clique para abrir
+</span>
+
+</div>
+
+<div class="arrow">
+
+<i class="ri-arrow-right-line"></i>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- LISTA -->
+
+<div
+class="card"
+onclick="abrir('disparador-lista.html')"
+>
+
+<div class="glow"></div>
+
+<div class="top">
+
+<div class="icon">
+
+<i class="ri-contacts-book-2-fill"></i>
+
+</div>
+
+<div class="badge">
+LISTA
+</div>
+
+</div>
+
+<h2>
+Disparo em Lista
+</h2>
+
+<p>
+Rotação automática de campanhas para listas com envio inteligente.
+</p>
+
+<div class="features">
+
+<div class="feature">
+
+<i class="ri-check-line"></i>
+
+<span>
+Campanhas automáticas
+</span>
+
+</div>
+
+<div class="feature">
+
+<i class="ri-check-line"></i>
+
+<span>
+Barra de progresso
+</span>
+
+</div>
+
+<div class="feature">
+
+<i class="ri-check-line"></i>
+
+<span>
+Anti repetição
+</span>
+
+</div>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+
+<strong>
+15s-25s
+</strong>
+
+<span>
+Delay inteligente
+</span>
+
+</div>
+
+<div class="stat">
+
+<strong>
+120+
+</strong>
+
+<span>
+Mensagens/hora
+</span>
+
+</div>
+
+</div>
+
+<div class="footer">
+
+<div class="footer-left">
+
+<strong>
+Lista Inteligente
+</strong>
+
+<span>
+Clique para abrir
+</span>
+
+</div>
+
+<div class="arrow">
+
+<i class="ri-arrow-right-line"></i>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function abrir(pagina){
+
+try{
+
+let frame =
+window.top.document.getElementById("frame");
+
+if(frame){
+
+frame.src = pagina;
+
+return;
+
+}
+
+}catch(e){}
+
+window.location.href = pagina;
+
+}
+
+</script>
+
+</body>
+
+</html>

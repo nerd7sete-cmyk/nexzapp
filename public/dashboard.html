@@ -1,0 +1,1406 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+/>
+
+<title>NexZapp • Dashboard</title>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<link
+href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
+rel="stylesheet"
+/>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet"
+/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+:root{
+
+--green:#22c55e;
+--green2:#16a34a;
+
+--bg:#020202;
+
+--card:#080808;
+
+--soft:
+rgba(255,255,255,.03);
+
+--border:
+rgba(255,255,255,.05);
+
+--text:#fff;
+
+--muted:#6b7280;
+
+}
+
+html,
+body{
+
+width:100%;
+overflow-x:hidden;
+
+background:#020202;
+
+font-family:'Inter',sans-serif;
+
+color:#fff;
+
+}
+
+/* ====================== */
+/* BODY */
+/* ====================== */
+
+body{
+
+padding:
+calc(16px + env(safe-area-inset-top))
+16px
+calc(24px + env(safe-area-inset-bottom));
+
+background:
+
+radial-gradient(
+circle at top left,
+rgba(34,197,94,.05),
+transparent 28%
+),
+
+radial-gradient(
+circle at bottom right,
+rgba(34,197,94,.04),
+transparent 30%
+),
+
+#020202;
+
+}
+
+/* ====================== */
+/* CONTAINER */
+/* ====================== */
+
+.container{
+
+width:100%;
+max-width:1800px;
+
+margin:auto;
+
+}
+
+/* ====================== */
+/* TOP */
+/* ====================== */
+
+.top{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+gap:18px;
+
+margin-bottom:24px;
+
+flex-wrap:wrap;
+
+}
+
+.title{
+
+display:flex;
+align-items:center;
+
+gap:18px;
+
+}
+
+.title-icon{
+
+width:72px;
+height:72px;
+
+border-radius:24px;
+
+background:
+linear-gradient(
+180deg,
+rgba(34,197,94,.14),
+rgba(34,197,94,.04)
+);
+
+border:
+1px solid rgba(34,197,94,.12);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+.title-icon i{
+
+font-size:34px;
+
+color:var(--green);
+
+}
+
+.title h1{
+
+font-size:38px;
+
+font-weight:900;
+
+letter-spacing:-1px;
+
+}
+
+.title p{
+
+margin-top:6px;
+
+font-size:13px;
+
+color:var(--muted);
+
+}
+
+/* ====================== */
+/* STATUS */
+/* ====================== */
+
+.status{
+
+display:flex;
+align-items:center;
+
+gap:14px;
+
+padding:18px 22px;
+
+border-radius:24px;
+
+background:
+linear-gradient(
+180deg,
+#0a0a0a,
+#060606
+);
+
+border:
+1px solid var(--border);
+
+}
+
+.status-dot{
+
+width:14px;
+height:14px;
+
+border-radius:50%;
+
+}
+
+.online{
+
+background:var(--green);
+
+box-shadow:
+0 0 18px rgba(34,197,94,.8);
+
+animation:pulse 1.5s infinite;
+
+}
+
+.offline{
+
+background:#ef4444;
+
+box-shadow:
+0 0 18px rgba(239,68,68,.8);
+
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.15);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+.status strong{
+
+font-size:14px;
+
+}
+
+.status p{
+
+margin-top:4px;
+
+font-size:12px;
+
+color:var(--muted);
+
+}
+
+/* ====================== */
+/* STATS */
+/* ====================== */
+
+.stats{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:18px;
+
+margin-bottom:22px;
+
+}
+
+.stat{
+
+background:
+linear-gradient(
+180deg,
+#0a0a0a,
+#060606
+);
+
+border:
+1px solid var(--border);
+
+border-radius:30px;
+
+padding:24px;
+
+transition:.2s;
+
+}
+
+.stat:hover{
+
+transform:translateY(-3px);
+
+border-color:
+rgba(34,197,94,.10);
+
+}
+
+.stat-top{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:20px;
+
+}
+
+.stat-top span{
+
+font-size:13px;
+
+color:#9ca3af;
+
+}
+
+.icon{
+
+width:56px;
+height:56px;
+
+border-radius:18px;
+
+background:
+rgba(34,197,94,.08);
+
+border:
+1px solid rgba(34,197,94,.12);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+.icon i{
+
+font-size:24px;
+
+color:var(--green);
+
+}
+
+.stat h2{
+
+font-size:46px;
+
+font-weight:900;
+
+letter-spacing:-2px;
+
+}
+
+.stat p{
+
+margin-top:8px;
+
+font-size:13px;
+
+color:var(--muted);
+
+}
+
+/* ====================== */
+/* GRID */
+/* ====================== */
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+1.1fr .9fr;
+
+gap:22px;
+
+}
+
+/* ====================== */
+/* CARD */
+/* ====================== */
+
+.card{
+
+background:
+linear-gradient(
+180deg,
+#0a0a0a,
+#060606
+);
+
+border:
+1px solid var(--border);
+
+border-radius:34px;
+
+padding:24px;
+
+}
+
+/* ====================== */
+/* HEADER */
+/* ====================== */
+
+.card-header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:22px;
+
+gap:14px;
+
+flex-wrap:wrap;
+
+}
+
+.card-header h2{
+
+font-size:22px;
+
+font-weight:800;
+
+}
+
+.badge{
+
+padding:10px 14px;
+
+border-radius:14px;
+
+background:
+rgba(34,197,94,.08);
+
+border:
+1px solid rgba(34,197,94,.12);
+
+color:#86efac;
+
+font-size:11px;
+
+font-weight:800;
+
+}
+
+/* ====================== */
+/* ACTIVITIES */
+/* ====================== */
+
+.activities{
+
+display:flex;
+flex-direction:column;
+
+gap:14px;
+
+}
+
+.activity{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+gap:14px;
+
+padding:18px;
+
+border-radius:24px;
+
+background:#050505;
+
+border:
+1px solid rgba(255,255,255,.03);
+
+transition:.2s;
+
+}
+
+.activity:hover{
+
+border-color:
+rgba(34,197,94,.08);
+
+}
+
+.activity-left{
+
+display:flex;
+align-items:center;
+
+gap:16px;
+
+}
+
+.activity-icon{
+
+width:54px;
+height:54px;
+
+border-radius:18px;
+
+background:
+rgba(34,197,94,.08);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+.activity-icon i{
+
+font-size:22px;
+
+color:var(--green);
+
+}
+
+.activity-info h4{
+
+font-size:15px;
+
+margin-bottom:5px;
+
+}
+
+.activity-info p{
+
+font-size:12px;
+
+color:var(--muted);
+
+}
+
+.activity-time{
+
+font-size:12px;
+
+font-weight:700;
+
+color:#86efac;
+
+}
+
+/* ====================== */
+/* RIGHT */
+/* ====================== */
+
+.right{
+
+display:flex;
+flex-direction:column;
+
+gap:18px;
+
+}
+
+.mini{
+
+background:#050505;
+
+border:
+1px solid rgba(255,255,255,.04);
+
+border-radius:28px;
+
+padding:22px;
+
+}
+
+.mini-top{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:18px;
+
+}
+
+.mini-top i{
+
+font-size:24px;
+
+color:var(--green);
+
+}
+
+.mini h2{
+
+font-size:40px;
+
+font-weight:900;
+
+}
+
+.mini p{
+
+margin-top:8px;
+
+font-size:13px;
+
+color:var(--muted);
+
+}
+
+/* ====================== */
+/* PROGRESS */
+/* ====================== */
+
+.progress{
+
+margin-top:16px;
+
+width:100%;
+
+height:14px;
+
+background:#111;
+
+border-radius:30px;
+
+overflow:hidden;
+
+}
+
+.progress-fill{
+
+width:68%;
+
+height:100%;
+
+background:
+linear-gradient(
+90deg,
+var(--green),
+var(--green2)
+);
+
+}
+
+/* ====================== */
+/* RESPONSIVO */
+/* ====================== */
+
+@media(max-width:1150px){
+
+.stats{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+.grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:700px){
+
+body{
+
+padding:14px;
+
+}
+
+.stats{
+
+grid-template-columns:1fr;
+
+}
+
+.top{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.title h1{
+
+font-size:30px;
+
+}
+
+.stat h2{
+
+font-size:38px;
+
+}
+
+.activity{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- TOPO -->
+
+<div class="top">
+
+<div class="title">
+
+<div class="title-icon">
+
+<i class="ri-dashboard-3-fill"></i>
+
+</div>
+
+<div>
+
+<h1>
+Dashboard
+</h1>
+
+<p>
+Central operacional NexZapp em tempo real
+</p>
+
+</div>
+
+</div>
+
+<div class="status">
+
+<div
+class="status-dot offline"
+id="statusDot"
+></div>
+
+<div>
+
+<strong id="statusText">
+Conectando...
+</strong>
+
+<p>
+Status WhatsApp
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="stat">
+
+<div class="stat-top">
+
+<span>
+Mensagens Enviadas
+</span>
+
+<div class="icon">
+
+<i class="ri-send-plane-fill"></i>
+
+</div>
+
+</div>
+
+<h2 id="messagesSent">
+0
+</h2>
+
+<p>
+Total geral de envios
+</p>
+
+</div>
+
+<div class="stat">
+
+<div class="stat-top">
+
+<span>
+Total de Grupos
+</span>
+
+<div class="icon">
+
+<i class="ri-group-2-fill"></i>
+
+</div>
+
+</div>
+
+<h2 id="groupsCount">
+0
+</h2>
+
+<p>
+Grupos sincronizados
+</p>
+
+</div>
+
+<div class="stat">
+
+<div class="stat-top">
+
+<span>
+Grupos Selecionados
+</span>
+
+<div class="icon">
+
+<i class="ri-checkbox-circle-fill"></i>
+
+</div>
+
+</div>
+
+<h2 id="selectedGroups">
+0
+</h2>
+
+<p>
+Prontos para disparo
+</p>
+
+</div>
+
+<div class="stat">
+
+<div class="stat-top">
+
+<span>
+Tempo Online
+</span>
+
+<div class="icon">
+
+<i class="ri-timer-fill"></i>
+
+</div>
+
+</div>
+
+<h2 id="onlineTime">
+00:00:00
+</h2>
+
+<p>
+Sistema operacional
+</p>
+
+</div>
+
+</div>
+
+<!-- GRID -->
+
+<div class="grid">
+
+<!-- LEFT -->
+
+<div class="card">
+
+<div class="card-header">
+
+<h2>
+Atividade em Tempo Real
+</h2>
+
+<div class="badge">
+LIVE SYSTEM
+</div>
+
+</div>
+
+<div
+class="activities"
+id="activities"
+>
+
+<div class="activity">
+
+<div class="activity-left">
+
+<div class="activity-icon">
+
+<i class="ri-loader-4-line"></i>
+
+</div>
+
+<div class="activity-info">
+
+<h4>
+Sistema iniciado
+</h4>
+
+<p>
+Aguardando conexão...
+</p>
+
+</div>
+
+</div>
+
+<div class="activity-time">
+Agora
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="right">
+
+<div class="mini">
+
+<div class="mini-top">
+
+<strong>
+Sessão
+</strong>
+
+<i class="ri-whatsapp-line"></i>
+
+</div>
+
+<h2 id="sessionText">
+OFF
+</h2>
+
+<p>
+Status atual do WhatsApp
+</p>
+
+</div>
+
+<div class="mini">
+
+<div class="mini-top">
+
+<strong>
+Velocidade Média
+</strong>
+
+<i class="ri-flashlight-fill"></i>
+
+</div>
+
+<h2 id="velocity">
+42/h
+</h2>
+
+<p>
+Mensagens por hora
+</p>
+
+<div class="progress">
+
+<div
+class="progress-fill"
+id="progressFill"
+></div>
+
+</div>
+
+</div>
+
+<div class="mini">
+
+<div class="mini-top">
+
+<strong>
+Campanhas
+</strong>
+
+<i class="ri-megaphone-fill"></i>
+
+</div>
+
+<h2 id="campaignsCount">
+0
+</h2>
+
+<p>
+Campanhas salvas
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const socket = io({
+
+reconnection:true,
+reconnectionAttempts:999999,
+reconnectionDelay:2000
+
+});
+
+/* ====================== */
+/* CONTADORES */
+/* ====================== */
+
+const grupos = JSON.parse(
+
+localStorage.getItem(
+'todosGrupos'
+)
+
+) || [];
+
+document
+.getElementById(
+'groupsCount'
+)
+.innerText =
+grupos.length;
+
+const selecionados = JSON.parse(
+
+localStorage.getItem(
+'gruposSelecionados'
+)
+
+) || [];
+
+document
+.getElementById(
+'selectedGroups'
+)
+.innerText =
+selecionados.length;
+
+const mensagens = parseInt(
+
+localStorage.getItem(
+'mensagensEnviadas'
+)
+
+) || 0;
+
+document
+.getElementById(
+'messagesSent'
+)
+.innerText =
+mensagens;
+
+const campanhas = JSON.parse(
+
+localStorage.getItem(
+'campanhasNexZapp'
+)
+
+) || [];
+
+document
+.getElementById(
+'campaignsCount'
+)
+.innerText =
+campanhas.length;
+
+/* ====================== */
+/* TIMER */
+/* ====================== */
+
+let startTime = localStorage.getItem(
+'nexzappOnlineStart'
+);
+
+if(!startTime){
+
+startTime = Date.now();
+
+localStorage.setItem(
+'nexzappOnlineStart',
+startTime
+);
+
+}
+
+function atualizarTempo(){
+
+const agora = Date.now();
+
+const diff = Math.floor(
+(agora - startTime) / 1000
+);
+
+const horas = String(
+Math.floor(diff / 3600)
+).padStart(2,'0');
+
+const minutos = String(
+Math.floor((diff % 3600) / 60)
+).padStart(2,'0');
+
+const segundos = String(
+diff % 60
+).padStart(2,'0');
+
+document
+.getElementById(
+'onlineTime'
+)
+.innerText =
+`${horas}:${minutos}:${segundos}`;
+
+}
+
+setInterval(
+atualizarTempo,
+1000
+);
+
+atualizarTempo();
+
+/* ====================== */
+/* STATUS */
+/* ====================== */
+
+function atualizarStatus(
+texto,
+online=false
+){
+
+document
+.getElementById(
+'statusText'
+)
+.innerText =
+texto;
+
+const dot =
+document
+.getElementById(
+'statusDot'
+);
+
+const session =
+document
+.getElementById(
+'sessionText'
+);
+
+if(online){
+
+dot.classList.remove(
+'offline'
+);
+
+dot.classList.add(
+'online'
+);
+
+session.innerText = 'ON';
+
+}else{
+
+dot.classList.remove(
+'online'
+);
+
+dot.classList.add(
+'offline'
+);
+
+session.innerText = 'OFF';
+
+}
+
+}
+
+/* ====================== */
+/* ATIVIDADE */
+/* ====================== */
+
+function atividade(
+titulo,
+texto,
+icon
+){
+
+const box =
+document.getElementById(
+'activities'
+);
+
+const item =
+document.createElement(
+'div'
+);
+
+item.className =
+'activity';
+
+item.innerHTML = `
+
+<div class="activity-left">
+
+<div class="activity-icon">
+
+<i class="${icon}"></i>
+
+</div>
+
+<div class="activity-info">
+
+<h4>
+${titulo}
+</h4>
+
+<p>
+${texto}
+</p>
+
+</div>
+
+</div>
+
+<div class="activity-time">
+Agora
+</div>
+
+`;
+
+box.prepend(item);
+
+if(box.children.length > 7){
+
+box.removeChild(
+box.lastChild
+);
+
+}
+
+}
+
+/* ====================== */
+/* SOCKET */
+/* ====================== */
+
+socket.on('connect',()=>{
+
+atualizarStatus(
+'Painel conectado',
+true
+);
+
+atividade(
+
+'Painel conectado',
+
+'Sistema online',
+
+'ri-plug-line'
+
+);
+
+});
+
+socket.on('disconnect',()=>{
+
+atualizarStatus(
+'Sistema offline',
+false
+);
+
+atividade(
+
+'Conexão perdida',
+
+'Tentando reconectar',
+
+'ri-wifi-off-line'
+
+);
+
+});
+
+socket.on('ready',()=>{
+
+atualizarStatus(
+'WhatsApp conectado',
+true
+);
+
+atividade(
+
+'WhatsApp conectado',
+
+'Sistema pronto para disparos',
+
+'ri-whatsapp-line'
+
+);
+
+});
+
+socket.on('groups',(lista)=>{
+
+if(!lista) return;
+
+document
+.getElementById(
+'groupsCount'
+)
+.innerText =
+lista.length;
+
+});
+
+/* ====================== */
+/* AUTO VELOCIDADE */
+/* ====================== */
+
+function atualizarVelocidade(){
+
+const velocidade =
+Math.floor(
+Math.random() * 8
+) + 35;
+
+document
+.getElementById(
+'velocity'
+)
+.innerText =
+velocidade + '/h';
+
+document
+.getElementById(
+'progressFill'
+)
+.style.width =
+velocidade + '%';
+
+}
+
+setInterval(
+atualizarVelocidade,
+4000
+);
+
+atualizarVelocidade();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,737 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta 
+name="viewport" 
+content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+/>
+
+<title>Visualizar Campanha • NexZapp</title>
+
+<link 
+href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" 
+rel="stylesheet"
+/>
+
+<link 
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" 
+rel="stylesheet"
+/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+:root{
+
+--green:#22c55e;
+--green2:#16a34a;
+
+--bg:#020202;
+
+--card:#0a0a0a;
+
+--border:
+rgba(255,255,255,.05);
+
+--muted:#8b8b95;
+
+}
+
+html,
+body{
+
+width:100%;
+height:100%;
+
+overflow:hidden;
+
+font-family:'Inter',sans-serif;
+
+background:#020202;
+
+color:#fff;
+
+}
+
+/* ========================= */
+/* BODY */
+/* ========================= */
+
+body{
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+padding:20px;
+
+background:
+
+radial-gradient(
+circle at top left,
+rgba(34,197,94,.05),
+transparent 28%
+),
+
+radial-gradient(
+circle at bottom right,
+rgba(34,197,94,.04),
+transparent 32%
+),
+
+#020202;
+
+}
+
+/* ========================= */
+/* CONTAINER */
+/* ========================= */
+
+.viewer{
+
+width:100%;
+max-width:430px;
+
+height:94vh;
+
+background:#0b0b0b;
+
+border:
+1px solid rgba(255,255,255,.05);
+
+border-radius:38px;
+
+overflow:hidden;
+
+display:flex;
+flex-direction:column;
+
+box-shadow:
+0 25px 70px rgba(0,0,0,.55);
+
+position:relative;
+
+}
+
+/* ========================= */
+/* HEADER */
+/* ========================= */
+
+.top{
+
+height:86px;
+
+padding:
+env(safe-area-inset-top)
+18px
+0;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+background:
+rgba(15,15,15,.92);
+
+backdrop-filter:blur(18px);
+
+border-bottom:
+1px solid rgba(255,255,255,.04);
+
+flex-shrink:0;
+
+}
+
+.top-left{
+
+display:flex;
+align-items:center;
+
+gap:14px;
+
+padding-left:18px;
+
+}
+
+.avatar{
+
+width:52px;
+height:52px;
+
+border-radius:50%;
+
+background:
+linear-gradient(
+135deg,
+var(--green),
+var(--green2)
+);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-weight:800;
+
+font-size:18px;
+
+color:#fff;
+
+box-shadow:
+0 10px 25px rgba(34,197,94,.18);
+
+}
+
+.user h2{
+
+font-size:17px;
+
+font-weight:800;
+
+margin-bottom:4px;
+
+}
+
+.user p{
+
+font-size:12px;
+
+color:#9ca3af;
+
+}
+
+.top-actions{
+
+display:flex;
+align-items:center;
+
+gap:10px;
+
+padding-right:18px;
+
+}
+
+.top-btn{
+
+width:42px;
+height:42px;
+
+border-radius:16px;
+
+background:
+rgba(255,255,255,.03);
+
+border:
+1px solid rgba(255,255,255,.05);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+color:#fff;
+
+font-size:18px;
+
+}
+
+/* ========================= */
+/* CHAT */
+/* ========================= */
+
+.chat{
+
+flex:1;
+
+overflow:auto;
+
+padding:22px 18px 26px;
+
+display:flex;
+flex-direction:column;
+
+background:
+
+url("https://i.ibb.co/4wVfYX1Z/Whats-App-Image-2026-05-19-at-14-46-53.jpg"),
+
+linear-gradient(
+180deg,
+#0d0d0d,
+#050505
+);
+
+background-size:cover;
+
+background-position:center;
+
+background-repeat:no-repeat;
+
+position:relative;
+
+}
+
+/* OVERLAY */
+
+.chat::before{
+
+content:'';
+
+position:absolute;
+
+inset:0;
+
+background:
+rgba(0,0,0,.38);
+
+backdrop-filter:blur(.5px);
+
+}
+
+/* CONTENT */
+
+.chat-content{
+
+position:relative;
+
+z-index:2;
+
+display:flex;
+flex-direction:column;
+
+}
+
+/* DATE */
+
+.date{
+
+margin:auto;
+
+margin-bottom:22px;
+
+padding:8px 14px;
+
+border-radius:14px;
+
+background:
+rgba(0,0,0,.38);
+
+backdrop-filter:blur(12px);
+
+font-size:11px;
+
+color:#d1d5db;
+
+}
+
+/* MESSAGE */
+
+.message{
+
+margin-left:auto;
+
+max-width:88%;
+
+background:
+
+linear-gradient(
+180deg,
+#1f6b4b,
+#185b40
+);
+
+padding:14px 14px 10px;
+
+border-radius:20px 20px 6px 20px;
+
+box-shadow:
+0 12px 25px rgba(0,0,0,.32);
+
+animation:fade .25s ease;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+transform:translateY(10px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
+.message img{
+
+width:100%;
+
+border-radius:14px;
+
+margin-bottom:10px;
+
+display:block;
+
+object-fit:cover;
+
+max-height:420px;
+
+}
+
+.message-text{
+
+font-size:14px;
+
+line-height:1.7;
+
+color:#fff;
+
+white-space:pre-wrap;
+
+word-break:break-word;
+
+}
+
+/* META */
+
+.meta{
+
+display:flex;
+justify-content:flex-end;
+align-items:center;
+
+gap:6px;
+
+margin-top:10px;
+
+font-size:11px;
+
+color:rgba(255,255,255,.75);
+
+}
+
+.meta i{
+
+font-size:15px;
+
+color:#9ef7bf;
+
+}
+
+/* ========================= */
+/* FOOTER */
+/* ========================= */
+
+.bottom{
+
+height:84px;
+
+padding:14px 16px
+calc(14px + env(safe-area-inset-bottom));
+
+background:
+rgba(12,12,12,.94);
+
+backdrop-filter:blur(16px);
+
+border-top:
+1px solid rgba(255,255,255,.04);
+
+display:flex;
+align-items:center;
+
+gap:12px;
+
+flex-shrink:0;
+
+}
+
+.input-fake{
+
+flex:1;
+
+height:54px;
+
+border-radius:18px;
+
+background:
+rgba(255,255,255,.03);
+
+border:
+1px solid rgba(255,255,255,.04);
+
+display:flex;
+align-items:center;
+
+padding:0 18px;
+
+font-size:14px;
+
+color:#7b7b85;
+
+}
+
+.send{
+
+width:54px;
+height:54px;
+
+border:none;
+
+border-radius:18px;
+
+background:
+linear-gradient(
+135deg,
+var(--green),
+var(--green2)
+);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+color:#fff;
+
+font-size:22px;
+
+box-shadow:
+0 12px 25px rgba(34,197,94,.22);
+
+}
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+
+@media(max-width:700px){
+
+body{
+
+padding:0;
+
+}
+
+.viewer{
+
+height:100vh;
+max-width:100%;
+
+border-radius:0;
+
+}
+
+.chat{
+
+padding:18px 14px 24px;
+
+}
+
+.message{
+
+max-width:92%;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="viewer">
+
+<!-- HEADER -->
+
+<div class="top">
+
+<div class="top-left">
+
+<div class="avatar">
+NZ
+</div>
+
+<div class="user">
+
+<h2>
+NexZapp Oficial
+</h2>
+
+<p>
+online agora
+</p>
+
+</div>
+
+</div>
+
+<div class="top-actions">
+
+<div class="top-btn">
+
+<i class="ri-video-line"></i>
+
+</div>
+
+<div class="top-btn">
+
+<i class="ri-phone-line"></i>
+
+</div>
+
+<div class="top-btn">
+
+<i class="ri-more-2-fill"></i>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CHAT -->
+
+<div class="chat">
+
+<div class="chat-content">
+
+<div class="date">
+
+Hoje • Visualização da campanha
+
+</div>
+
+<div class="message">
+
+<img 
+id="previewImage"
+src=""
+style="display:none"
+/>
+
+<div 
+class="message-text"
+id="previewText"
+>
+
+Sua campanha aparecerá aqui.
+
+</div>
+
+<div class="meta">
+
+<span id="time">
+14:35
+</span>
+
+<i class="ri-check-double-line"></i>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="bottom">
+
+<div class="input-fake">
+
+Digite uma mensagem
+
+</div>
+
+<button class="send">
+
+<i class="ri-send-plane-fill"></i>
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* ========================= */
+/* CAMPANHA */
+/* ========================= */
+
+const campanha = JSON.parse(
+
+localStorage.getItem(
+'campanhaSelecionada'
+)
+
+) || {};
+
+/* TEXTO */
+
+document.getElementById(
+'previewText'
+).innerText =
+
+campanha.mensagem ||
+
+'Sua campanha aparecerá aqui.';
+
+/* IMAGEM */
+
+if(campanha.imagem){
+
+const img =
+document.getElementById(
+'previewImage'
+);
+
+img.src =
+campanha.imagem;
+
+img.style.display =
+'block';
+
+}
+
+/* HORA */
+
+const agora =
+new Date();
+
+const hora =
+String(
+agora.getHours()
+).padStart(2,'0');
+
+const minuto =
+String(
+agora.getMinutes()
+).padStart(2,'0');
+
+document.getElementById(
+'time'
+).innerText =
+`${hora}:${minuto}`;
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,869 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta 
+name="viewport" 
+content="width=device-width, initial-scale=1.0"
+/>
+
+<title>NexZapp • Configurações</title>
+
+<link 
+href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" 
+rel="stylesheet"
+/>
+
+<link 
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" 
+rel="stylesheet"
+/>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+
+  --green:#22c55e;
+  --green2:#16a34a;
+
+  --bg:#020202;
+  --card:#080808;
+  --card2:#050505;
+
+  --text:#ffffff;
+  --muted:#6b7280;
+
+  --border:
+  rgba(255,255,255,.05);
+
+}
+
+body{
+
+  background:
+  radial-gradient(
+    circle at top left,
+    rgba(34,197,94,.07),
+    transparent 28%
+  ),
+  radial-gradient(
+    circle at bottom right,
+    rgba(34,197,94,.05),
+    transparent 30%
+  ),
+  #020202;
+
+  min-height:100vh;
+
+  color:#fff;
+
+  font-family:'Inter',sans-serif;
+
+  padding:24px;
+
+}
+
+.container{
+
+  width:100%;
+  max-width:1700px;
+  margin:auto;
+
+}
+
+/* ===================== */
+/* TOPO */
+/* ===================== */
+
+.top{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  gap:20px;
+
+  margin-bottom:28px;
+
+  flex-wrap:wrap;
+
+}
+
+.title{
+
+  display:flex;
+  align-items:center;
+  gap:18px;
+
+}
+
+.title-icon{
+
+  width:76px;
+  height:76px;
+
+  border-radius:28px;
+
+  background:
+  linear-gradient(
+    180deg,
+    rgba(34,197,94,.14),
+    rgba(34,197,94,.05)
+  );
+
+  border:
+  1px solid rgba(34,197,94,.18);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  box-shadow:
+  0 0 30px rgba(34,197,94,.12);
+
+}
+
+.title-icon i{
+
+  font-size:34px;
+  color:var(--green);
+
+}
+
+.title h1{
+
+  font-size:42px;
+  font-weight:900;
+
+}
+
+.title p{
+
+  margin-top:6px;
+
+  color:var(--muted);
+
+  font-size:14px;
+
+}
+
+/* ===================== */
+/* GRID */
+/* ===================== */
+
+.grid{
+
+  display:grid;
+
+  grid-template-columns:
+  1fr 390px;
+
+  gap:24px;
+
+}
+
+/* ===================== */
+/* CARD */
+/* ===================== */
+
+.card{
+
+  background:
+  linear-gradient(
+    180deg,
+    #0b0b0b,
+    #080808
+  );
+
+  border:
+  1px solid var(--border);
+
+  border-radius:34px;
+
+  padding:28px;
+
+  box-shadow:
+  0 15px 35px rgba(0,0,0,.22);
+
+}
+
+/* ===================== */
+/* HEADER */
+/* ===================== */
+
+.card-header{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  gap:12px;
+
+  margin-bottom:28px;
+
+  flex-wrap:wrap;
+
+}
+
+.card-header h2{
+
+  font-size:24px;
+  font-weight:800;
+
+}
+
+.badge{
+
+  padding:10px 14px;
+
+  border-radius:14px;
+
+  background:
+  rgba(34,197,94,.10);
+
+  border:
+  1px solid rgba(34,197,94,.15);
+
+  color:#86efac;
+
+  font-size:12px;
+  font-weight:700;
+
+}
+
+/* ===================== */
+/* CONFIG ITEM */
+/* ===================== */
+
+.configs{
+
+  display:flex;
+  flex-direction:column;
+
+  gap:18px;
+
+}
+
+.config{
+
+  background:#050505;
+
+  border:
+  1px solid rgba(255,255,255,.04);
+
+  border-radius:28px;
+
+  padding:24px;
+
+}
+
+.config-top{
+
+  display:flex;
+  align-items:center;
+
+  gap:18px;
+
+}
+
+.config-icon{
+
+  width:62px;
+  height:62px;
+
+  border-radius:22px;
+
+  background:
+  linear-gradient(
+    180deg,
+    rgba(34,197,94,.12),
+    rgba(34,197,94,.04)
+  );
+
+  border:
+  1px solid rgba(34,197,94,.12);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+}
+
+.config-icon i{
+
+  font-size:24px;
+
+  color:var(--green);
+
+}
+
+.config-text h3{
+
+  font-size:16px;
+
+  margin-bottom:6px;
+
+}
+
+.config-text p{
+
+  font-size:13px;
+
+  color:var(--muted);
+
+}
+
+/* ===================== */
+/* INFO */
+/* ===================== */
+
+.info{
+
+  margin-top:18px;
+
+  background:
+  rgba(34,197,94,.05);
+
+  border:
+  1px solid rgba(34,197,94,.10);
+
+  border-radius:20px;
+
+  padding:18px;
+
+}
+
+.info strong{
+
+  display:block;
+
+  font-size:14px;
+
+  margin-bottom:8px;
+
+}
+
+.info p{
+
+  color:#9ca3af;
+
+  font-size:13px;
+
+  line-height:1.7;
+
+}
+
+/* ===================== */
+/* RIGHT */
+/* ===================== */
+
+.right{
+
+  display:flex;
+  flex-direction:column;
+
+  gap:18px;
+
+}
+
+.mini{
+
+  background:#050505;
+
+  border:
+  1px solid rgba(255,255,255,.04);
+
+  border-radius:30px;
+
+  padding:24px;
+
+}
+
+.mini-top{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:18px;
+
+}
+
+.mini-top i{
+
+  font-size:24px;
+
+  color:var(--green);
+
+}
+
+.mini h2{
+
+  font-size:42px;
+
+  font-weight:900;
+
+}
+
+.mini p{
+
+  margin-top:8px;
+
+  color:var(--muted);
+
+  font-size:13px;
+
+}
+
+/* ===================== */
+/* STATUS */
+/* ===================== */
+
+.status{
+
+  display:flex;
+  align-items:center;
+
+  gap:12px;
+
+}
+
+.status-dot{
+
+  width:14px;
+  height:14px;
+
+  border-radius:50%;
+
+  background:var(--green);
+
+  box-shadow:
+  0 0 18px rgba(34,197,94,.8);
+
+  animation:pulse 1.5s infinite;
+
+}
+
+@keyframes pulse{
+
+  0%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.15);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
+}
+
+/* ===================== */
+/* RESPONSIVO */
+/* ===================== */
+
+@media(max-width:1100px){
+
+  .grid{
+
+    grid-template-columns:1fr;
+
+  }
+
+}
+
+@media(max-width:700px){
+
+  body{
+
+    padding:16px;
+
+  }
+
+  .title h1{
+
+    font-size:30px;
+
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- TOPO -->
+
+  <div class="top">
+
+    <div class="title">
+
+      <div class="title-icon">
+
+        <i class="ri-settings-3-fill"></i>
+
+      </div>
+
+      <div>
+
+        <h1>
+          Configurações
+        </h1>
+
+        <p>
+          Informações e status do sistema NexZapp
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- GRID -->
+
+  <div class="grid">
+
+    <!-- LEFT -->
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <h2>
+          Sistema
+        </h2>
+
+        <div class="badge">
+          PREMIUM
+        </div>
+
+      </div>
+
+      <div class="configs">
+
+        <!-- DELAY -->
+
+        <div class="config">
+
+          <div class="config-top">
+
+            <div class="config-icon">
+
+              <i class="ri-timer-2-line"></i>
+
+            </div>
+
+            <div class="config-text">
+
+              <h3>
+                Delay Humanizado
+              </h3>
+
+              <p>
+                Sistema utiliza delay automático inteligente
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="info">
+
+            <strong>
+              Proteção ativa
+            </strong>
+
+            <p>
+              O NexZapp trabalha com delays internos
+              humanizados automaticamente para melhorar
+              estabilidade e reduzir riscos durante disparos.
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- CAMPANHAS -->
+
+        <div class="config">
+
+          <div class="config-top">
+
+            <div class="config-icon">
+
+              <i class="ri-megaphone-line"></i>
+
+            </div>
+
+            <div class="config-text">
+
+              <h3>
+                Biblioteca de campanhas
+              </h3>
+
+              <p>
+                Campanhas ficam salvas no navegador
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="info">
+
+            <strong>
+              Auto salvamento
+            </strong>
+
+            <p>
+              Todas as campanhas criadas ficam armazenadas
+              automaticamente no navegador do usuário para
+              reutilização rápida no disparador.
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- GRUPOS -->
+
+        <div class="config">
+
+          <div class="config-top">
+
+            <div class="config-icon">
+
+              <i class="ri-group-2-line"></i>
+
+            </div>
+
+            <div class="config-text">
+
+              <h3>
+                Grupos sincronizados
+              </h3>
+
+              <p>
+                Atualização em tempo real do WhatsApp
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="info">
+
+            <strong>
+              Sincronização ativa
+            </strong>
+
+            <p>
+              Os grupos conectados ao WhatsApp ficam
+              sincronizados automaticamente no painel
+              NexZapp em tempo real.
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- SISTEMA -->
+
+        <div class="config">
+
+          <div class="config-top">
+
+            <div class="config-icon">
+
+              <i class="ri-shield-check-line"></i>
+
+            </div>
+
+            <div class="config-text">
+
+              <h3>
+                Segurança do sistema
+              </h3>
+
+              <p>
+                Estrutura protegida e otimizada
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="info">
+
+            <strong>
+              NexZapp Protection
+            </strong>
+
+            <p>
+              O sistema possui estrutura otimizada para
+              manter estabilidade da sessão, carregamento
+              rápido e organização profissional do painel.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="right">
+
+      <div class="mini">
+
+        <div class="mini-top">
+
+          <strong>
+            Sistema
+          </strong>
+
+          <i class="ri-shield-check-line"></i>
+
+        </div>
+
+        <h2>
+          ONLINE
+        </h2>
+
+        <p>
+          NexZapp funcionando normalmente
+        </p>
+
+      </div>
+
+      <div class="mini">
+
+        <div class="mini-top">
+
+          <strong>
+            Sessão
+          </strong>
+
+          <div class="status">
+
+            <div class="status-dot"></div>
+
+          </div>
+
+        </div>
+
+        <h2>
+          ATIVA
+        </h2>
+
+        <p>
+          Sessão sincronizada
+        </p>
+
+      </div>
+
+      <div class="mini">
+
+        <div class="mini-top">
+
+          <strong>
+            Campanhas
+          </strong>
+
+          <i class="ri-megaphone-line"></i>
+
+        </div>
+
+        <h2 id="campaignCount">
+          0
+        </h2>
+
+        <p>
+          Campanhas salvas no navegador
+        </p>
+
+      </div>
+
+      <div class="mini">
+
+        <div class="mini-top">
+
+          <strong>
+            Grupos
+          </strong>
+
+          <i class="ri-group-line"></i>
+
+        </div>
+
+        <h2 id="groupCount">
+          0
+        </h2>
+
+        <p>
+          Grupos sincronizados
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+const campanhas = JSON.parse(
+
+  localStorage.getItem(
+    'campanhasNexZapp'
+  )
+
+) || [];
+
+const grupos = JSON.parse(
+
+  localStorage.getItem(
+    'todosGrupos'
+  )
+
+) || [];
+
+document
+.getElementById(
+'campaignCount'
+)
+.innerText =
+campanhas.length;
+
+document
+.getElementById(
+'groupCount'
+)
+.innerText =
+grupos.length;
+
+</script>
+
+</body>
+</html>

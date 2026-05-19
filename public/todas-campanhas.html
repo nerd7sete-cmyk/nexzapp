@@ -1,0 +1,950 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+/>
+
+<title>NexZapp • Biblioteca</title>
+
+<link
+href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
+rel="stylesheet"
+/>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet"
+/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+:root{
+
+--green:#22c55e;
+--green2:#16a34a;
+
+--bg:#020202;
+
+--card:#080808;
+
+--card2:#050505;
+
+--muted:#6b7280;
+
+--border:
+rgba(255,255,255,.05);
+
+}
+
+html,
+body{
+
+width:100%;
+overflow-x:hidden;
+
+background:#020202;
+
+font-family:'Inter',sans-serif;
+
+color:#fff;
+
+}
+
+body{
+
+min-height:100vh;
+
+padding:
+calc(16px + env(safe-area-inset-top))
+16px
+calc(24px + env(safe-area-inset-bottom));
+
+background:#020202;
+
+}
+
+/* CONTAINER */
+
+.container{
+
+width:100%;
+max-width:1700px;
+
+margin:auto;
+
+}
+
+/* TOP */
+
+.top{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+gap:20px;
+
+margin-bottom:28px;
+
+flex-wrap:wrap;
+
+}
+
+/* TITLE */
+
+.title{
+
+display:flex;
+align-items:center;
+
+gap:18px;
+
+}
+
+.title-icon{
+
+width:74px;
+height:74px;
+
+border-radius:26px;
+
+background:
+linear-gradient(
+180deg,
+rgba(34,197,94,.12),
+rgba(34,197,94,.04)
+);
+
+border:
+1px solid rgba(34,197,94,.14);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+.title-icon i{
+
+font-size:34px;
+
+color:var(--green);
+
+}
+
+.title h1{
+
+font-size:38px;
+
+font-weight:900;
+
+letter-spacing:-1px;
+
+}
+
+.title p{
+
+margin-top:6px;
+
+font-size:13px;
+
+color:var(--muted);
+
+}
+
+/* STATUS */
+
+.status{
+
+padding:16px 20px;
+
+border-radius:20px;
+
+background:#080808;
+
+border:
+1px solid rgba(255,255,255,.05);
+
+display:flex;
+align-items:center;
+
+gap:12px;
+
+}
+
+.status-dot{
+
+width:12px;
+height:12px;
+
+border-radius:50%;
+
+background:var(--green);
+
+box-shadow:
+0 0 18px rgba(34,197,94,.7);
+
+}
+
+.status span{
+
+font-size:13px;
+
+font-weight:700;
+
+color:#d1d5db;
+
+}
+
+/* MAIN */
+
+.main{
+
+background:
+linear-gradient(
+180deg,
+#090909,
+#060606
+);
+
+border:
+1px solid rgba(255,255,255,.05);
+
+border-radius:34px;
+
+padding:26px;
+
+box-shadow:
+0 20px 60px rgba(0,0,0,.35);
+
+}
+
+/* MAIN HEADER */
+
+.main-header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+gap:16px;
+
+margin-bottom:26px;
+
+flex-wrap:wrap;
+
+}
+
+.main-header h2{
+
+font-size:28px;
+
+font-weight:900;
+
+letter-spacing:-0.5px;
+
+}
+
+.main-header p{
+
+margin-top:6px;
+
+font-size:13px;
+
+color:var(--muted);
+
+}
+
+/* BADGE */
+
+.badge{
+
+padding:10px 14px;
+
+border-radius:14px;
+
+background:
+rgba(34,197,94,.08);
+
+border:
+1px solid rgba(34,197,94,.14);
+
+color:#86efac;
+
+font-size:11px;
+
+font-weight:800;
+
+letter-spacing:.5px;
+
+}
+
+/* CAMPAIGNS */
+
+.campaigns{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fill,minmax(270px,1fr));
+
+gap:18px;
+
+}
+
+/* CARD */
+
+.campaign{
+
+background:#050505;
+
+border:
+1px solid rgba(255,255,255,.05);
+
+border-radius:26px;
+
+overflow:hidden;
+
+transition:.2s;
+
+position:relative;
+
+}
+
+.campaign:hover{
+
+transform:
+translateY(-3px);
+
+border-color:
+rgba(34,197,94,.15);
+
+box-shadow:
+0 20px 40px rgba(0,0,0,.35);
+
+}
+
+/* PREVIEW */
+
+.preview{
+
+width:100%;
+height:170px;
+
+background:#0f0f0f;
+
+overflow:hidden;
+
+position:relative;
+
+}
+
+.preview img{
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+display:block;
+
+}
+
+.preview-empty{
+
+width:100%;
+height:100%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:58px;
+
+color:#2a2a2a;
+
+}
+
+/* BODY */
+
+.body{
+
+padding:18px;
+
+}
+
+.body h3{
+
+font-size:16px;
+
+font-weight:800;
+
+margin-bottom:10px;
+
+white-space:nowrap;
+
+overflow:hidden;
+
+text-overflow:ellipsis;
+
+}
+
+.body p{
+
+font-size:12px;
+
+line-height:1.7;
+
+color:#9ca3af;
+
+display:-webkit-box;
+
+-webkit-line-clamp:3;
+-webkit-box-orient:vertical;
+
+overflow:hidden;
+
+min-height:62px;
+
+margin-bottom:16px;
+
+}
+
+/* FOOTER */
+
+.footer{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+gap:10px;
+
+margin-bottom:16px;
+
+flex-wrap:wrap;
+
+}
+
+.tag{
+
+padding:8px 12px;
+
+border-radius:12px;
+
+font-size:10px;
+
+font-weight:800;
+
+background:
+rgba(34,197,94,.08);
+
+border:
+1px solid rgba(34,197,94,.14);
+
+color:#86efac;
+
+}
+
+.date{
+
+font-size:11px;
+
+color:#6b7280;
+
+}
+
+/* ACTIONS */
+
+.actions{
+
+display:flex;
+
+gap:10px;
+
+}
+
+/* BUTTON */
+
+.action-btn{
+
+flex:1;
+
+height:46px;
+
+border:none;
+
+border-radius:16px;
+
+cursor:pointer;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:17px;
+
+transition:.2s;
+
+}
+
+/* VISUALIZAR */
+
+.view{
+
+background:
+linear-gradient(
+135deg,
+var(--green),
+var(--green2)
+);
+
+color:#fff;
+
+}
+
+/* EDITAR */
+
+.edit{
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.05);
+
+color:#fff;
+
+}
+
+/* DELETE */
+
+.delete{
+
+background:
+rgba(239,68,68,.10);
+
+border:
+1px solid rgba(239,68,68,.12);
+
+color:#f87171;
+
+}
+
+.action-btn:hover{
+
+transform:
+translateY(-2px);
+
+}
+
+/* EMPTY */
+
+.empty{
+
+height:500px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+
+gap:16px;
+
+color:#6b7280;
+
+}
+
+.empty i{
+
+font-size:72px;
+
+opacity:.4;
+
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+body{
+
+padding:14px;
+
+}
+
+.title h1{
+
+font-size:30px;
+
+}
+
+.main{
+
+padding:18px;
+
+border-radius:26px;
+
+}
+
+.campaigns{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- TOP -->
+
+<div class="top">
+
+<div class="title">
+
+<div class="title-icon">
+
+<i class="ri-megaphone-fill"></i>
+
+</div>
+
+<div>
+
+<h1>
+Biblioteca
+</h1>
+
+<p>
+Todas campanhas do NexZapp
+</p>
+
+</div>
+
+</div>
+
+<div class="status">
+
+<div class="status-dot"></div>
+
+<span>
+Biblioteca sincronizada
+</span>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="main-header">
+
+<div>
+
+<h2>
+Campanhas salvas
+</h2>
+
+<p>
+Gerencie todas campanhas criadas no sistema
+</p>
+
+</div>
+
+<div class="badge">
+PREMIUM UI
+</div>
+
+</div>
+
+<div
+class="campaigns"
+id="campaigns"
+></div>
+
+</div>
+
+</div>
+
+<script>
+
+/* STORAGE */
+
+let campanhas = JSON.parse(
+
+localStorage.getItem(
+'campanhasNexZapp'
+)
+
+) || [];
+
+const campaignsDiv =
+document.getElementById(
+'campaigns'
+);
+
+/* RENDER */
+
+function renderizarCampanhas(){
+
+if(!campanhas.length){
+
+campaignsDiv.innerHTML = `
+
+<div class="empty">
+
+<i class="ri-folder-open-line"></i>
+
+<h3>
+Nenhuma campanha salva
+</h3>
+
+<p>
+As campanhas aparecerão aqui
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+campaignsDiv.innerHTML = '';
+
+campanhas.forEach((campanha,index)=>{
+
+campaignsDiv.innerHTML += `
+
+<div class="campaign">
+
+<div class="preview">
+
+${
+campanha.imagem
+
+?
+
+`<img src="${campanha.imagem}">`
+
+:
+
+`
+
+<div class="preview-empty">
+
+<i class="ri-image-line"></i>
+
+</div>
+
+`
+
+}
+
+</div>
+
+<div class="body">
+
+<h3>
+${campanha.nome}
+</h3>
+
+<p>
+${campanha.mensagem}
+</p>
+
+<div class="footer">
+
+<div class="tag">
+ATIVA
+</div>
+
+<div class="date">
+${campanha.data || 'Hoje'}
+</div>
+
+</div>
+
+<div class="actions">
+
+<!-- VISUALIZAR -->
+
+<button
+class="action-btn view"
+onclick="visualizarCampanha(${index})"
+title="Visualizar"
+>
+
+<i class="ri-eye-line"></i>
+
+</button>
+
+<!-- EDITAR -->
+
+<button
+class="action-btn edit"
+onclick="editarCampanha(${index})"
+title="Editar"
+>
+
+<i class="ri-edit-line"></i>
+
+</button>
+
+<!-- EXCLUIR -->
+
+<button
+class="action-btn delete"
+onclick="deletarCampanha(${index})"
+title="Excluir"
+>
+
+<i class="ri-delete-bin-6-line"></i>
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* VISUALIZAR */
+
+function visualizarCampanha(index){
+
+localStorage.setItem(
+
+'campanhaSelecionada',
+
+JSON.stringify(
+campanhas[index]
+)
+
+);
+
+try{
+
+const frame =
+window.top.document.getElementById(
+'frame'
+);
+
+if(frame){
+
+frame.src =
+'visualizar-campanha.html';
+
+return;
+
+}
+
+}catch(e){}
+
+window.location.href =
+'visualizar-campanha.html';
+
+}
+
+/* EDITAR */
+
+function editarCampanha(index){
+
+localStorage.setItem(
+
+'editarCampanha',
+
+JSON.stringify({
+
+campanha:
+campanhas[index],
+
+index
+
+})
+
+);
+
+try{
+
+const frame =
+window.top.document.getElementById(
+'frame'
+);
+
+if(frame){
+
+frame.src =
+'editar-campanha.html';
+
+return;
+
+}
+
+}catch(e){}
+
+window.location.href =
+'editar-campanha.html';
+
+}
+
+/* EXCLUIR */
+
+function deletarCampanha(index){
+
+const confirmar =
+confirm(
+'Deseja excluir esta campanha?'
+);
+
+if(!confirmar) return;
+
+campanhas.splice(index,1);
+
+localStorage.setItem(
+
+'campanhasNexZapp',
+
+JSON.stringify(campanhas)
+
+);
+
+renderizarCampanhas();
+
+}
+
+/* INIT */
+
+renderizarCampanhas();
+
+</script>
+
+</body>
+</html>

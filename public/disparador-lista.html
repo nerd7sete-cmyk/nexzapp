@@ -1,0 +1,1825 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+/>
+
+<title>NexZapp • Lista Inteligente ULTRA</title>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<link
+href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
+rel="stylesheet"
+/>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet"
+/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+:root{
+
+--green:#22c55e;
+--green2:#16a34a;
+
+--red:#ef4444;
+
+--bg:#020202;
+--card:#080808;
+
+--text:#fff;
+--muted:#6b7280;
+
+--border:
+rgba(255,255,255,.05);
+
+}
+
+body{
+
+background:
+radial-gradient(
+circle at top left,
+rgba(34,197,94,.08),
+transparent 30%
+),
+radial-gradient(
+circle at bottom right,
+rgba(34,197,94,.05),
+transparent 30%
+),
+#020202;
+
+color:#fff;
+
+font-family:'Inter',sans-serif;
+
+min-height:100vh;
+
+padding:18px;
+
+overflow-x:hidden;
+
+}
+
+.container{
+
+width:100%;
+max-width:1850px;
+margin:auto;
+
+}
+
+/* TOP */
+
+.top{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+gap:18px;
+
+margin-bottom:20px;
+
+flex-wrap:wrap;
+
+}
+
+.title{
+
+display:flex;
+align-items:center;
+gap:16px;
+
+}
+
+.title-icon{
+
+width:72px;
+height:72px;
+
+border-radius:24px;
+
+background:
+linear-gradient(
+180deg,
+rgba(34,197,94,.14),
+rgba(34,197,94,.05)
+);
+
+border:
+1px solid rgba(34,197,94,.16);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+.title-icon i{
+
+font-size:30px;
+color:var(--green);
+
+}
+
+.title h1{
+
+font-size:34px;
+font-weight:900;
+
+}
+
+.title p{
+
+margin-top:4px;
+font-size:13px;
+color:var(--muted);
+
+}
+
+/* STATUS */
+
+.status{
+
+background:#080808;
+
+border:
+1px solid var(--border);
+
+border-radius:22px;
+
+padding:14px 18px;
+
+display:flex;
+align-items:center;
+gap:12px;
+
+}
+
+.dot{
+
+width:12px;
+height:12px;
+
+border-radius:50%;
+
+}
+
+.online{
+
+background:var(--green);
+
+box-shadow:
+0 0 20px rgba(34,197,94,.8);
+
+}
+
+.offline{
+
+background:var(--red);
+
+}
+
+/* GRID */
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+1fr 380px;
+
+gap:18px;
+
+}
+
+.card{
+
+background:
+linear-gradient(
+180deg,
+#0b0b0b,
+#080808
+);
+
+border:
+1px solid var(--border);
+
+border-radius:30px;
+
+padding:20px;
+
+}
+
+/* HEADER */
+
+.card-header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:18px;
+
+flex-wrap:wrap;
+
+gap:10px;
+
+}
+
+.card-header h2{
+
+font-size:22px;
+font-weight:800;
+
+}
+
+.badge{
+
+padding:8px 12px;
+
+border-radius:12px;
+
+background:
+rgba(34,197,94,.08);
+
+border:
+1px solid rgba(34,197,94,.14);
+
+color:#86efac;
+
+font-size:10px;
+font-weight:800;
+
+}
+
+/* CAMPAIGNS */
+
+.campaigns{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fill,minmax(210px,1fr));
+
+gap:14px;
+
+margin-bottom:20px;
+
+}
+
+.campaign{
+
+background:#050505;
+
+border:
+2px solid rgba(255,255,255,.05);
+
+border-radius:24px;
+
+overflow:hidden;
+
+cursor:pointer;
+
+transition:.2s;
+
+position:relative;
+
+}
+
+.campaign.active{
+
+border-color:
+rgba(34,197,94,.8);
+
+box-shadow:
+0 0 20px rgba(34,197,94,.14);
+
+}
+
+.campaign:hover{
+
+transform:translateY(-2px);
+
+}
+
+.campaign-image{
+
+width:100%;
+height:130px;
+
+background:#111;
+
+}
+
+.campaign-image img{
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+}
+
+.campaign-content{
+
+padding:14px;
+
+}
+
+.campaign-content h3{
+
+font-size:13px;
+margin-bottom:6px;
+
+}
+
+.campaign-content p{
+
+font-size:11px;
+
+line-height:1.6;
+
+color:var(--muted);
+
+display:-webkit-box;
+
+-webkit-line-clamp:2;
+
+-webkit-box-orient:vertical;
+
+overflow:hidden;
+
+min-height:34px;
+
+}
+
+.select-icon{
+
+position:absolute;
+
+top:10px;
+right:10px;
+
+width:28px;
+height:28px;
+
+border-radius:50%;
+
+background:
+rgba(0,0,0,.7);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:16px;
+
+}
+
+/* INFO */
+
+.info{
+
+background:#050505;
+
+border:
+1px solid rgba(255,255,255,.05);
+
+border-radius:24px;
+
+padding:18px;
+
+margin-bottom:20px;
+
+}
+
+.info h3{
+
+font-size:15px;
+margin-bottom:10px;
+
+}
+
+.info p{
+
+font-size:12px;
+
+line-height:1.7;
+
+color:var(--muted);
+
+}
+
+/* INPUT */
+
+.input-box{
+
+margin-bottom:18px;
+
+}
+
+.label{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:10px;
+
+}
+
+.label strong{
+
+font-size:13px;
+
+}
+
+.label span{
+
+font-size:11px;
+color:var(--muted);
+
+}
+
+textarea{
+
+width:100%;
+
+min-height:240px;
+
+background:#050505;
+
+border:
+1px solid rgba(255,255,255,.05);
+
+border-radius:24px;
+
+padding:18px;
+
+color:#fff;
+
+font-size:14px;
+
+outline:none;
+
+resize:none;
+
+font-family:'Inter',sans-serif;
+
+line-height:1.7;
+
+}
+
+/* BUTTONS */
+
+.buttons{
+
+display:flex;
+gap:10px;
+
+margin-top:18px;
+
+flex-wrap:wrap;
+
+}
+
+.btn{
+
+flex:1;
+
+height:56px;
+
+border:none;
+
+border-radius:18px;
+
+font-size:13px;
+font-weight:800;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+.btn:hover{
+
+transform:translateY(-2px);
+
+}
+
+.btn-primary{
+
+background:
+linear-gradient(
+135deg,
+var(--green),
+var(--green2)
+);
+
+color:#fff;
+
+}
+
+.btn-dark{
+
+background:#050505;
+
+border:
+1px solid rgba(255,255,255,.05);
+
+color:#fff;
+
+}
+
+.btn-danger{
+
+background:
+linear-gradient(
+135deg,
+#ef4444,
+#dc2626
+);
+
+color:#fff;
+
+}
+
+/* RIGHT */
+
+.right{
+
+display:flex;
+flex-direction:column;
+
+gap:14px;
+
+}
+
+/* PREVIEW */
+
+.preview-box{
+
+background:#111b21;
+
+border-radius:28px;
+
+padding:16px;
+
+overflow:hidden;
+
+}
+
+.preview-top{
+
+display:flex;
+align-items:center;
+gap:12px;
+
+margin-bottom:14px;
+
+}
+
+.avatar{
+
+width:44px;
+height:44px;
+
+border-radius:50%;
+
+background:
+linear-gradient(
+135deg,
+var(--green),
+var(--green2)
+);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-weight:800;
+
+}
+
+.preview-chat{
+
+background:#202c33;
+
+padding:10px;
+
+border-radius:18px;
+
+}
+
+.preview-chat img{
+
+width:100%;
+
+max-height:380px;
+
+object-fit:contain;
+
+border-radius:14px;
+
+display:none;
+
+margin-bottom:10px;
+
+background:#000;
+
+}
+
+.preview-message{
+
+font-size:13px;
+
+line-height:1.7;
+
+white-space:pre-wrap;
+
+word-break:break-word;
+
+}
+
+/* MINI */
+
+.mini-grid{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:14px;
+
+}
+
+.mini{
+
+background:#080808;
+
+border:
+1px solid rgba(255,255,255,.05);
+
+border-radius:24px;
+
+padding:18px;
+
+}
+
+.mini-top{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:10px;
+
+}
+
+.mini-top i{
+
+font-size:20px;
+color:var(--green);
+
+}
+
+.mini h2{
+
+font-size:28px;
+font-weight:900;
+
+}
+
+.mini p{
+
+margin-top:6px;
+
+font-size:11px;
+color:var(--muted);
+
+}
+
+/* PROGRESS */
+
+.progress-bar{
+
+width:100%;
+
+height:16px;
+
+background:#050505;
+
+border-radius:30px;
+
+overflow:hidden;
+
+margin-top:14px;
+
+}
+
+.progress-fill{
+
+width:0%;
+
+height:100%;
+
+background:
+linear-gradient(
+90deg,
+var(--green),
+var(--green2)
+);
+
+}
+
+/* LOGS */
+
+.logs{
+
+display:flex;
+flex-direction:column;
+
+gap:10px;
+
+max-height:260px;
+
+overflow:auto;
+
+padding-right:4px;
+
+}
+
+.logs::-webkit-scrollbar{
+
+width:4px;
+
+}
+
+.logs::-webkit-scrollbar-thumb{
+
+background:var(--green);
+
+border-radius:20px;
+
+}
+
+.log{
+
+background:#050505;
+
+border:
+1px solid rgba(255,255,255,.05);
+
+border-radius:18px;
+
+padding:14px;
+
+}
+
+.log strong{
+
+font-size:12px;
+
+}
+
+.log p{
+
+margin-top:5px;
+
+font-size:11px;
+
+color:var(--muted);
+
+}
+
+/* MOBILE */
+
+@media(max-width:1100px){
+
+.grid{
+grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:700px){
+
+.mini-grid{
+grid-template-columns:1fr;
+}
+
+.title h1{
+font-size:28px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="top">
+
+<div class="title">
+
+<div class="title-icon">
+
+<i class="ri-contacts-book-2-fill"></i>
+
+</div>
+
+<div>
+
+<h1>
+Lista Inteligente ULTRA
+</h1>
+
+<p>
+Sistema premium com rotação inteligente
+</p>
+
+</div>
+
+</div>
+
+<div class="status">
+
+<div
+class="dot offline"
+id="statusDot"
+></div>
+
+<div>
+
+<strong id="statusText">
+Conectando...
+</strong>
+
+<p id="statusSub">
+Aguardando sessão
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="grid">
+
+<!-- LEFT -->
+
+<div class="card">
+
+<div class="card-header">
+
+<h2>
+Selecionar Campanhas
+</h2>
+
+<div class="badge">
+SMART ROTATION
+</div>
+
+</div>
+
+<div
+class="campaigns"
+id="campaigns"
+></div>
+
+<div class="info">
+
+<h3>
+Sistema Humanizado
+</h3>
+
+<p>
+As campanhas selecionadas são alternadas automaticamente sem repetição sequencial para deixar o disparo mais natural e seguro.
+</p>
+
+</div>
+
+<div class="input-box">
+
+<div class="label">
+
+<strong>
+Lista de números
+</strong>
+
+<span id="totalNumeros">
+0 números
+</span>
+
+</div>
+
+<textarea
+id="numeros"
+placeholder="Cole os números aqui..."
+></textarea>
+
+</div>
+
+<div class="buttons">
+
+<button
+class="btn btn-dark"
+onclick="limparTudo()"
+>
+Limpar
+</button>
+
+<button
+class="btn btn-danger"
+onclick="pausar()"
+>
+Pausar
+</button>
+
+<button
+class="btn btn-primary"
+onclick="enviarLista()"
+id="sendBtn"
+>
+Iniciar Disparo
+</button>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="right">
+
+<!-- PREVIEW -->
+
+<div class="preview-box">
+
+<div class="preview-top">
+
+<div class="avatar">
+NZ
+</div>
+
+<div>
+
+<strong>
+Preview WhatsApp
+</strong>
+
+<p
+style="
+font-size:11px;
+color:#6b7280;
+margin-top:4px;
+"
+>
+Prévia da campanha
+</p>
+
+</div>
+
+</div>
+
+<div class="preview-chat">
+
+<img
+id="previewImage"
+>
+
+<div
+class="preview-message"
+id="previewMessage"
+>
+Selecione uma campanha...
+</div>
+
+</div>
+
+</div>
+
+<!-- STATS -->
+
+<div class="mini-grid">
+
+<div class="mini">
+
+<div class="mini-top">
+
+<strong>
+Campanhas
+</strong>
+
+<i class="ri-megaphone-line"></i>
+
+</div>
+
+<h2 id="totalCampanhas">
+0
+</h2>
+
+<p>
+Selecionadas
+</p>
+
+</div>
+
+<div class="mini">
+
+<div class="mini-top">
+
+<strong>
+Lista
+</strong>
+
+<i class="ri-contacts-book-line"></i>
+
+</div>
+
+<h2 id="totalLista">
+0
+</h2>
+
+<p>
+Números carregados
+</p>
+
+</div>
+
+<div class="mini">
+
+<div class="mini-top">
+
+<strong>
+Velocidade
+</strong>
+
+<i class="ri-speed-up-line"></i>
+
+</div>
+
+<h2 id="msgMinuto">
+2.0
+</h2>
+
+<p>
+Mensagens por minuto
+</p>
+
+</div>
+
+<div class="mini">
+
+<div class="mini-top">
+
+<strong>
+Por Hora
+</strong>
+
+<i class="ri-timer-flash-line"></i>
+
+</div>
+
+<h2 id="msgHora">
+120
+</h2>
+
+<p>
+Mensagens por hora
+</p>
+
+</div>
+
+<div class="mini">
+
+<div class="mini-top">
+
+<strong>
+Delay
+</strong>
+
+<i class="ri-time-line"></i>
+
+</div>
+
+<h2 id="delayAtual">
+35s
+</h2>
+
+<p>
+Delay médio ativo
+</p>
+
+</div>
+
+<div class="mini">
+
+<div class="mini-top">
+
+<strong>
+Sistema
+</strong>
+
+<i class="ri-shield-check-line"></i>
+
+</div>
+
+<h2 id="systemStatus">
+OFF
+</h2>
+
+<p>
+Anti restrição ON
+</p>
+
+</div>
+
+</div>
+
+<!-- PROGRESS -->
+
+<div class="card">
+
+<div class="card-header">
+
+<h2>
+Progresso
+</h2>
+
+<div class="badge">
+LIVE
+</div>
+
+</div>
+
+<div
+style="
+display:flex;
+justify-content:space-between;
+font-size:12px;
+margin-bottom:12px;
+"
+>
+
+<span>
+Enviados:
+<b id="enviados">
+0
+</b>
+</span>
+
+<span>
+Falhados:
+<b id="falhados">
+0
+</b>
+</span>
+
+</div>
+
+<div class="progress-bar">
+
+<div
+class="progress-fill"
+id="progressFill"
+></div>
+
+</div>
+
+</div>
+
+<!-- LOGS -->
+
+<div class="card">
+
+<div class="card-header">
+
+<h2>
+Atividades
+</h2>
+
+<div class="badge">
+SYSTEM
+</div>
+
+</div>
+
+<div
+class="logs"
+id="logs"
+>
+
+<div class="log">
+
+<strong>
+Sistema iniciado
+</strong>
+
+<p>
+Aguardando conexão...
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const socket = io();
+
+const campaignsDiv =
+document.getElementById(
+'campaigns'
+);
+
+const logs =
+document.getElementById(
+'logs'
+);
+
+const numeros =
+document.getElementById(
+'numeros'
+);
+
+const previewImage =
+document.getElementById(
+'previewImage'
+);
+
+const previewMessage =
+document.getElementById(
+'previewMessage'
+);
+
+const campanhas = JSON.parse(
+
+localStorage.getItem(
+'campanhasNexZapp'
+)
+
+) || [];
+
+let campanhasSelecionadas = [];
+
+/* PERFORMANCE */
+
+const delayMin = 25;
+const delayMax = 45;
+
+const mediaDelay =
+
+Math.floor(
+(delayMin + delayMax) / 2
+);
+
+const msgPorMinuto =
+
+(60 / mediaDelay).toFixed(1);
+
+const msgPorHora =
+
+Math.floor(
+3600 / mediaDelay
+);
+
+document
+.getElementById(
+'msgMinuto'
+)
+.innerText =
+msgPorMinuto;
+
+document
+.getElementById(
+'msgHora'
+)
+.innerText =
+msgPorHora;
+
+document
+.getElementById(
+'delayAtual'
+)
+.innerText =
+mediaDelay + 's';
+
+/* STATUS */
+
+socket.on(
+'ready',
+()=>{
+
+document
+.getElementById(
+'statusText'
+)
+.innerText =
+'WhatsApp conectado';
+
+document
+.getElementById(
+'statusSub'
+)
+.innerText =
+'Sistema pronto';
+
+document
+.getElementById(
+'systemStatus'
+)
+.innerText =
+'ON';
+
+const dot =
+document
+.getElementById(
+'statusDot'
+);
+
+dot.classList.remove(
+'offline'
+);
+
+dot.classList.add(
+'online'
+);
+
+}
+);
+
+/* NUMBERS */
+
+numeros.addEventListener(
+'input',
+()=>{
+
+const total = numeros
+.value
+.split('\n')
+.filter(n=>n.trim())
+.length;
+
+document
+.getElementById(
+'totalNumeros'
+)
+.innerText =
+total + ' números';
+
+}
+);
+
+/* RENDER */
+
+renderizarCampanhas();
+
+function renderizarCampanhas(){
+
+campaignsDiv.innerHTML = '';
+
+if(!campanhas.length){
+
+campaignsDiv.innerHTML = `
+
+<div class="log">
+
+<strong>
+Nenhuma campanha
+</strong>
+
+<p>
+Crie campanhas antes
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+campanhas.forEach((campanha,index)=>{
+
+campaignsDiv.innerHTML += `
+
+<div
+class="campaign"
+id="campanha-${index}"
+onclick="toggleCampanha(${index})"
+>
+
+<div class="select-icon">
+
+<i class="ri-add-line"></i>
+
+</div>
+
+<div class="campaign-image">
+
+<img src="${
+campanha.imagem ||
+'https://via.placeholder.com/500x300'
+}">
+
+</div>
+
+<div class="campaign-content">
+
+<h3>
+${campanha.nome || 'Campanha'}
+</h3>
+
+<p>
+${campanha.mensagem || ''}
+</p>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* SELECT */
+
+function toggleCampanha(index){
+
+const campanha =
+campanhas[index];
+
+const card =
+document.getElementById(
+`campanha-${index}`
+);
+
+const existe =
+
+campanhasSelecionadas.find(
+
+c => c.nome === campanha.nome
+
+);
+
+if(existe){
+
+campanhasSelecionadas =
+
+campanhasSelecionadas.filter(
+
+c => c.nome !== campanha.nome
+
+);
+
+card.classList.remove(
+'active'
+);
+
+card.querySelector('i').className =
+'ri-add-line';
+
+}else{
+
+campanhasSelecionadas.push({
+
+nome:
+campanha.nome,
+
+mensagem:
+campanha.mensagem,
+
+imagem:
+
+campanha.imagem
+
+? {
+
+data:
+campanha.imagem.split(',')[1],
+
+mimetype:
+'image/png',
+
+filename:
+'campanha.png'
+
+}
+
+: null
+
+});
+
+card.classList.add(
+'active'
+);
+
+card.querySelector('i').className =
+'ri-check-line';
+
+previewMessage.innerText =
+campanha.mensagem;
+
+if(campanha.imagem){
+
+previewImage.src =
+campanha.imagem;
+
+previewImage.style.display =
+'block';
+
+}else{
+
+previewImage.style.display =
+'none';
+
+}
+
+}
+
+document
+.getElementById(
+'totalCampanhas'
+)
+.innerText =
+campanhasSelecionadas.length;
+
+}
+
+/* FORMAT */
+
+function formatarNumero(numero){
+
+numero = numero
+.replace(/\D/g,'');
+
+if(numero.startsWith('55')){
+
+numero =
+numero.substring(2);
+
+}
+
+if(numero.length === 10){
+
+numero =
+
+numero.slice(0,2) +
+
+'9' +
+
+numero.slice(2);
+
+}
+
+return '55' + numero;
+
+}
+
+/* SEND */
+
+function enviarLista(){
+
+let lista = numeros.value
+
+.split('\n')
+
+.map(n => n.trim())
+
+.filter(n => n);
+
+lista = lista.map(
+
+n => formatarNumero(n)
+
+);
+
+lista = [...new Set(lista)];
+
+if(!lista.length){
+
+alert(
+'Cole os números'
+);
+
+return;
+
+}
+
+if(!campanhasSelecionadas.length){
+
+alert(
+'Selecione campanhas'
+);
+
+return;
+
+}
+
+document
+.getElementById(
+'totalLista'
+)
+.innerText =
+lista.length;
+
+socket.emit(
+
+'send-list',
+
+{
+
+numeros:lista,
+
+campanhas:
+campanhasSelecionadas
+
+}
+
+);
+
+addLog(
+'Disparo iniciado',
+`${lista.length} números`
+);
+
+}
+
+/* PROGRESS */
+
+socket.on(
+'list-progress',
+(data)=>{
+
+document
+.getElementById(
+'enviados'
+)
+.innerText =
+data.enviados;
+
+document
+.getElementById(
+'falhados'
+)
+.innerText =
+data.falhados;
+
+const porcentagem =
+
+(
+(
+data.enviados +
+data.falhados
+)
+/
+data.total
+) * 100;
+
+document
+.getElementById(
+'progressFill'
+)
+.style.width =
+porcentagem + '%';
+
+}
+);
+
+/* LOG */
+
+function addLog(
+titulo,
+texto
+){
+
+const item =
+document.createElement(
+'div'
+);
+
+item.className =
+'log';
+
+item.innerHTML = `
+
+<strong>
+${titulo}
+</strong>
+
+<p>
+${texto}
+</p>
+
+`;
+
+logs.prepend(item);
+
+}
+
+/* PAUSE */
+
+function pausar(){
+
+socket.emit(
+'pause'
+);
+
+addLog(
+'Disparo pausado',
+'Sistema pausado'
+);
+
+}
+
+/* CLEAR */
+
+function limparTudo(){
+
+numeros.value = '';
+
+campanhasSelecionadas = [];
+
+document
+.querySelectorAll('.campaign')
+.forEach(card=>{
+
+card.classList.remove(
+'active'
+);
+
+card.querySelector('i').className =
+'ri-add-line';
+
+});
+
+previewMessage.innerText =
+'Selecione uma campanha...';
+
+previewImage.style.display =
+'none';
+
+document
+.getElementById(
+'totalCampanhas'
+)
+.innerText =
+'0';
+
+}
+
+/* SOCKET */
+
+socket.on(
+'connect',
+()=>{
+
+addLog(
+'Sistema conectado',
+'Painel online'
+);
+
+}
+);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1118 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta 
+name="viewport" 
+content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>NexZapp Premium</title>
+
+<link 
+href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" 
+rel="stylesheet"
+/>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+
+  --green:#22c55e;
+  --green2:#16a34a;
+
+  --bg:#020202;
+  --card:#080808;
+
+  --text:#ffffff;
+  --muted:#6b7280;
+
+  --border:rgba(255,255,255,.05);
+
+}
+
+html,
+body{
+
+  width:100%;
+  height:100%;
+
+  overflow:hidden;
+
+}
+
+body{
+
+  display:flex;
+
+  background:#020202;
+
+  color:#fff;
+
+  font-family:
+  "Segoe UI",
+  Arial,
+  sans-serif;
+
+}
+
+/* ========================= */
+/* SIDEBAR */
+/* ========================= */
+
+.sidebar{
+
+  width:290px;
+
+  height:100dvh;
+
+  background:
+  linear-gradient(
+    180deg,
+    #050505 0%,
+    #030303 100%
+  );
+
+  border-right:
+  1px solid rgba(255,255,255,.05);
+
+  padding:18px 14px 14px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  overflow-y:auto;
+
+  box-shadow:
+  inset 0 1px 0 rgba(255,255,255,.02);
+
+}
+
+.sidebar-content{
+
+  padding-bottom:18px;
+
+}
+
+/* ========================= */
+/* LOGO */
+/* ========================= */
+
+.logo-box{
+
+  display:flex;
+
+  align-items:center;
+
+  margin-bottom:22px;
+
+  padding:4px 2px;
+
+}
+
+.logo-top{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:16px;
+
+}
+
+.logo-img{
+
+  width:56px;
+  height:56px;
+
+  border-radius:18px;
+
+  background:
+  linear-gradient(
+    180deg,
+    #07130c 0%,
+    #0a1a10 100%
+  );
+
+  border:
+  1px solid rgba(34,197,94,.12);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  box-shadow:
+  0 0 25px rgba(34,197,94,.10);
+
+}
+
+.logo-img i{
+
+  font-size:28px;
+
+  color:var(--green);
+
+}
+
+.logo-text strong{
+
+  font-size:31px;
+
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  text-transform:uppercase;
+
+}
+
+.logo-text strong span{
+
+  color:var(--green);
+
+}
+
+.logo-text strong b{
+
+  color:#ffffff;
+
+  font-weight:900;
+
+}
+
+/* ========================= */
+/* USER */
+/* ========================= */
+
+.user{
+
+  background:
+  linear-gradient(
+    180deg,
+    #0b0b0b 0%,
+    #080808 100%
+  );
+
+  border:
+  1px solid rgba(255,255,255,.05);
+
+  border-radius:26px;
+
+  padding:18px;
+
+  margin-bottom:18px;
+
+}
+
+.user-top{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:14px;
+
+}
+
+.avatar{
+
+  width:56px;
+  height:56px;
+
+  border-radius:18px;
+
+  background:
+  linear-gradient(
+    180deg,
+    #07130c 0%,
+    #0b1f13 100%
+  );
+
+  border:
+  1px solid rgba(34,197,94,.15);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+}
+
+.avatar i{
+
+  font-size:24px;
+
+  color:var(--green);
+
+}
+
+.user-info{
+
+  flex:1;
+
+  min-width:0;
+
+}
+
+.painel{
+
+  color:#6b7280;
+
+  font-size:11px;
+
+  margin-bottom:6px;
+
+  letter-spacing:.4px;
+
+}
+
+.user strong{
+
+  display:block;
+
+  font-size:16px;
+
+  font-weight:700;
+
+  color:#fff;
+
+  white-space:nowrap;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+}
+
+/* ========================= */
+/* BADGE */
+/* ========================= */
+
+.badge{
+
+  margin-top:11px;
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  padding:7px 12px;
+
+  border-radius:999px;
+
+  background:#0f0f0f;
+
+  border:
+  1px solid rgba(255,255,255,.05);
+
+  font-size:11px;
+
+  color:#d1d5db;
+
+}
+
+.badge-dot{
+
+  width:7px;
+  height:7px;
+
+  border-radius:50%;
+
+  background:var(--green);
+
+  box-shadow:
+  0 0 12px rgba(34,197,94,.55);
+
+}
+
+/* ========================= */
+/* MENU */
+/* ========================= */
+
+.menu{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:10px;
+
+}
+
+.menu-item{
+
+  width:100%;
+
+  background:transparent;
+
+  border:
+  1px solid transparent;
+
+  border-radius:20px;
+
+  padding:14px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  cursor:pointer;
+
+  transition:.18s ease;
+
+}
+
+.menu-left{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:13px;
+
+}
+
+.menu-icon{
+
+  width:46px;
+  height:46px;
+
+  border-radius:16px;
+
+  background:
+  linear-gradient(
+    180deg,
+    #0b0b0b 0%,
+    #090909 100%
+  );
+
+  border:
+  1px solid rgba(255,255,255,.04);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  transition:.18s;
+
+}
+
+.menu-icon i{
+
+  font-size:19px;
+
+  color:#9ca3af;
+
+}
+
+.menu-text{
+
+  display:flex;
+
+  flex-direction:column;
+
+}
+
+.menu-text strong{
+
+  font-size:13px;
+
+  font-weight:700;
+
+  color:#f3f4f6;
+
+}
+
+.menu-text span{
+
+  margin-top:3px;
+
+  font-size:11px;
+
+  color:#6b7280;
+
+}
+
+.menu-right i{
+
+  font-size:18px;
+
+  color:#4b5563;
+
+}
+
+/* ========================= */
+/* HOVER */
+/* ========================= */
+
+.menu-item:hover{
+
+  background:#090909;
+
+  border-color:
+  rgba(255,255,255,.05);
+
+  transform:translateY(-1px);
+
+}
+
+.menu-item:hover .menu-icon{
+
+  background:#07130c;
+
+  border-color:
+  rgba(34,197,94,.16);
+
+}
+
+.menu-item:hover .menu-icon i{
+
+  color:var(--green);
+
+}
+
+.menu-item:hover .menu-right i{
+
+  color:var(--green);
+
+}
+
+/* ========================= */
+/* ACTIVE */
+/* ========================= */
+
+.menu-item.active{
+
+  background:
+  linear-gradient(
+    180deg,
+    rgba(13,13,13,1) 0%,
+    rgba(9,9,9,1) 100%
+  );
+
+  border-color:
+  rgba(34,197,94,.14);
+
+  box-shadow:
+  0 0 20px rgba(34,197,94,.08);
+
+}
+
+.menu-item.active .menu-icon{
+
+  background:#07130c;
+
+  border-color:
+  rgba(34,197,94,.22);
+
+}
+
+.menu-item.active .menu-icon i{
+
+  color:var(--green);
+
+}
+
+.menu-item.active .menu-right i{
+
+  color:var(--green);
+
+}
+
+/* ========================= */
+/* MAIN */
+/* ========================= */
+
+.main{
+
+  flex:1;
+
+  display:flex;
+
+  flex-direction:column;
+
+  height:100dvh;
+
+}
+
+/* ========================= */
+/* TOPBAR */
+/* ========================= */
+
+.topbar{
+
+  display:none;
+
+  height:72px;
+
+  padding:0 18px;
+
+  align-items:center;
+
+  border-bottom:
+  1px solid rgba(255,255,255,.05);
+
+  background:#050505;
+
+}
+
+.topbar-left{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:14px;
+
+}
+
+.menu-btn{
+
+  font-size:30px;
+
+  color:#f5f5f5;
+
+  cursor:pointer;
+
+}
+
+.topbar-logo{
+
+  font-size:24px;
+
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  text-transform:uppercase;
+
+}
+
+.topbar-logo span{
+
+  color:var(--green);
+
+}
+
+.topbar-logo b{
+
+  color:#fff;
+
+}
+
+/* ========================= */
+/* FRAME */
+/* ========================= */
+
+iframe{
+
+  flex:1;
+
+  width:100%;
+
+  border:none;
+
+  background:#020202;
+
+}
+
+/* ========================= */
+/* OVERLAY */
+/* ========================= */
+
+.overlay{
+
+  position:fixed;
+
+  inset:0;
+
+  background:rgba(0,0,0,.78);
+
+  backdrop-filter:blur(2px);
+
+  display:none;
+
+  z-index:1000;
+
+}
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+
+@media(max-width:900px){
+
+  .sidebar{
+
+    position:fixed;
+
+    left:0;
+    top:0;
+
+    transform:translateX(-100%);
+
+    z-index:1001;
+
+    transition:.3s;
+
+  }
+
+  .sidebar.active{
+
+    transform:translateX(0);
+
+  }
+
+  .topbar{
+
+    display:flex;
+
+  }
+
+  .logo-text strong{
+
+    font-size:24px;
+
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div 
+class="overlay"
+id="overlay"
+onclick="fecharMenu()"
+></div>
+
+<!-- SIDEBAR -->
+
+<div 
+class="sidebar"
+id="sidebar"
+>
+
+  <div class="sidebar-content">
+
+    <!-- LOGO -->
+
+    <div class="logo-box">
+
+      <div class="logo-top">
+
+        <div class="logo-img">
+
+          <i class="ri-whatsapp-fill"></i>
+
+        </div>
+
+        <div class="logo-text">
+
+          <strong>
+
+            <span>NEX</span><b>Zapp</b>
+
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- USER -->
+
+    <div 
+    class="user"
+    id="userBox"
+    ></div>
+
+    <!-- MENU -->
+
+    <div class="menu">
+
+      <div 
+      class="menu-item active"
+      onclick="abrir('dashboard.html', this)"
+      >
+
+        <div class="menu-left">
+
+          <div class="menu-icon">
+
+            <i class="ri-dashboard-line"></i>
+
+          </div>
+
+          <div class="menu-text">
+
+            <strong>
+              Dashboard
+            </strong>
+
+            <span>
+              Painel geral
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="menu-right">
+
+          <i class="ri-arrow-right-s-line"></i>
+
+        </div>
+
+      </div>
+
+      <div 
+      class="menu-item"
+      onclick="abrir('conexao.html', this)"
+      >
+
+        <div class="menu-left">
+
+          <div class="menu-icon">
+
+            <i class="ri-whatsapp-line"></i>
+
+          </div>
+
+          <div class="menu-text">
+
+            <strong>
+              Conexão
+            </strong>
+
+            <span>
+              Status WhatsApp
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="menu-right">
+
+          <i class="ri-arrow-right-s-line"></i>
+
+        </div>
+
+      </div>
+
+      <div 
+      class="menu-item"
+      onclick="abrir('grupos.html', this)"
+      >
+
+        <div class="menu-left">
+
+          <div class="menu-icon">
+
+            <i class="ri-group-2-line"></i>
+
+          </div>
+
+          <div class="menu-text">
+
+            <strong>
+              Grupos
+            </strong>
+
+            <span>
+              Gerenciar grupos
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="menu-right">
+
+          <i class="ri-arrow-right-s-line"></i>
+
+        </div>
+
+      </div>
+
+      <div 
+      class="menu-item"
+      onclick="abrir('central-disparador.html', this)"
+      >
+
+        <div class="menu-left">
+
+          <div class="menu-icon">
+
+            <i class="ri-send-plane-2-line"></i>
+
+          </div>
+
+          <div class="menu-text">
+
+            <strong>
+              Disparador
+            </strong>
+
+            <span>
+              Envio inteligente
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="menu-right">
+
+          <i class="ri-arrow-right-s-line"></i>
+
+        </div>
+
+      </div>
+
+     <div 
+class="menu-item"
+onclick="abrir('campanhas.html', this)"
+>
+
+  <div class="menu-left">
+
+    <div class="menu-icon">
+
+      <i class="ri-megaphone-line"></i>
+
+    </div>
+
+    <div class="menu-text">
+
+      <strong>
+        Campanhas
+      </strong>
+
+      <span>
+        Biblioteca de anúncios
+      </span>
+
+    </div>
+
+  </div>
+
+  <div class="menu-right">
+
+    <i class="ri-arrow-right-s-line"></i>
+
+  </div>
+
+</div>
+
+      <div 
+      class="menu-item"
+      onclick="abrir('configuracoes.html', this)"
+      >
+
+        <div class="menu-left">
+
+          <div class="menu-icon">
+
+            <i class="ri-settings-3-line"></i>
+
+          </div>
+
+          <div class="menu-text">
+
+            <strong>
+              Configurações
+            </strong>
+
+            <span>
+              Sistema e sessão
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="menu-right">
+
+          <i class="ri-arrow-right-s-line"></i>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+  <div class="topbar">
+
+    <div class="topbar-left">
+
+      <i 
+      class="ri-menu-line menu-btn"
+      onclick="abrirMenu()"
+      ></i>
+
+      <strong class="topbar-logo">
+
+        <span>NEX</span><b>Zapp</b>
+
+      </strong>
+
+    </div>
+
+  </div>
+
+  <iframe
+  id="frame"
+  src="dashboard.html"
+  ></iframe>
+
+</div>
+
+<script>
+
+/* USER */
+
+let usuario =
+localStorage.getItem("usuario")
+|| "Administrador";
+
+let primeiroNome =
+usuario.includes("@")
+? usuario.split("@")[0]
+: usuario.split(" ")[0];
+
+document.getElementById(
+"userBox"
+).innerHTML = `
+
+  <div class="user-top">
+
+    <div class="avatar">
+
+      <i class="ri-user-3-line"></i>
+
+    </div>
+
+    <div class="user-info">
+
+      <div class="painel">
+
+        Painel NexZapp
+
+      </div>
+
+      <strong>
+
+        ${primeiroNome}
+
+      </strong>
+
+      <div class="badge">
+
+        <div class="badge-dot"></div>
+
+        Sessão ativa
+
+      </div>
+
+    </div>
+
+  </div>
+
+`;
+
+/* ABRIR PÁGINA */
+
+function abrir(
+pagina,
+el
+){
+
+  document
+  .getElementById("frame")
+  .src = pagina;
+
+  if(el){
+
+    document
+    .querySelectorAll(".menu-item")
+    .forEach(i=>{
+
+      i.classList.remove(
+      "active"
+      );
+
+    });
+
+    el.classList.add(
+    "active"
+    );
+
+  }
+
+  fecharMenu();
+
+}
+
+/* MENU MOBILE */
+
+function abrirMenu(){
+
+  document
+  .getElementById("sidebar")
+  .classList.add("active");
+
+  document
+  .getElementById("overlay")
+  .style.display = "block";
+
+}
+
+function fecharMenu(){
+
+  document
+  .getElementById("sidebar")
+  .classList.remove("active");
+
+  document
+  .getElementById("overlay")
+  .style.display = "none";
+
+}
+
+</script>
+
+</body>
+
+</html>
