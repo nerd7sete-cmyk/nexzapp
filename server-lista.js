@@ -5,17 +5,17 @@ const http = require('http');
 const { Server } = require('socket.io');
 
 const {
-Client,
-LocalAuth,
-MessageMedia
+    Client,
+    LocalAuth,
+    MessageMedia
 } = require('whatsapp-web.js');
 
 const qrcode = require('qrcode');
 
 
-// ======================================
+// =====================================
 // APP
-// ======================================
+// =====================================
 
 const app = express();
 
@@ -23,580 +23,892 @@ const server = http.createServer(app);
 
 const io = new Server(server,{
 
-cors:{
-origin:"*"
-}
+    cors:{
+        origin:"*"
+    }
 
 });
 
 
-// ======================================
+// =====================================
 // EXPRESS
-// ======================================
+// =====================================
 
 app.use(express.static('public'));
 
 app.use(express.json({
 
-limit:'100mb'
+    limit:'100mb'
 
 }));
 
 
-// ======================================
+// =====================================
 // CONTROLE
-// ======================================
+// =====================================
 
 let pausado = false;
 
 let client = null;
 
+let gruposCache = [];
 
-// ======================================
-// START WHATSAPP
-// ======================================
+
+// =====================================
+// INICIAR WHATSAPP
+// =====================================
 
 function iniciarWhatsApp(){
 
-client = new Client({
+    client = new Client({
 
-authStrategy:new LocalAuth({
+    authStrategy:new LocalAuth(),
 
-clientId:'nexzapp'
+    takeoverOnConflict:true,
 
-}),
+    takeoverTimeoutMs:60000,
 
-puppeteer:{
+        puppeteer:{
 
-headless:true,
+            headless:true,
 
-executablePath:
-'/usr/bin/google-chrome-stable',
+timeout:120000,
 
-args:[
+            args:[
 
-'--no-sandbox',
-
-'--disable-setuid-sandbox',
-
-'--disable-dev-shm-usage',
-
-'--disable-gpu',
-
-'--disable-software-rasterizer',
-
-'--disable-extensions',
-
-'--disable-background-networking',
-
-'--disable-background-timer-throttling',
-
-'--disable-renderer-backgrounding',
-
-'--disable-features=site-per-process',
-
-'--disable-web-security',
-
-'--no-first-run',
-
-'--no-zygote',
-
-'--single-process'
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-dev-shm-usage'
 
 ]
 
-},
+        },
 
-authTimeoutMs:120000,
+        authTimeoutMs:120000
 
-restartOnAuthFail:true
-
-});
+    });
 
 
-// ======================================
-// QR
-// ======================================
+    // =====================================
+    // QR CODE
+    // =====================================
 
-client.on(
+    client.on(
 
-'qr',
+        'qr',
 
-async(qr)=>{
+        async(qr)=>{
 
-console.log(
-'QR CODE GERADO'
-);
+            console.log(
+                'QR CODE GERADO'
+            );
 
-const qrImage =
+            const qrImage =
 
-await qrcode.toDataURL(qr);
+            await qrcode.toDataURL(qr);
 
-io.emit(
-'qr',
-qrImage
-);
+            io.emit(
+                'qr',
+                qrImage
+            );
 
-}
+        }
 
-);
-
-
-// ======================================
-// READY
-// ======================================
-
-client.on(
-
-'ready',
-
-async()=>{
-
-console.log(
-'WhatsApp conectado'
-);
-
-io.emit(
-'ready'
-);
+    );
 
 
-// ======================================
-// GRUPOS
-// ======================================
+    // =====================================
+    // READY
+    // =====================================
 
-setTimeout(async()=>{
+    client.on(
 
-try{
+        'ready',
 
-const chats =
+        async()=>{
 
-await client.getChats();
+            console.log(
+                'WhatsApp conectado'
+            );
 
-const grupos = chats
+            io.emit(
+                'ready'
+            );
 
-.filter(chat => chat.isGroup)
 
-.map(chat => ({
+            // =====================================
+            // CARREGAR GRUPOS
+            // =====================================
 
-id:
-chat.id._serialized,
+            setTimeout(async()=>{
 
-name:
-chat.name
+                try{
 
-}));
+                    if(!client) return;
 
-io.emit(
-'groups',
-grupos
-);
+const chats = await client.getChats();
 
-console.log(
+if(!chats || chats.length === 0){
 
-`${grupos.length} grupos carregados`
+    console.log(
+        'Nenhum grupo encontrado'
+    );
 
-);
-
-}catch(err){
-
-console.log(
-'Erro grupos'
-);
-
-console.log(err);
+    return;
 
 }
 
-},5000);
+                    const grupos = chats
 
-}
+                    .filter(chat => chat.isGroup)
 
-);
+                    .map(chat => ({
 
+                        id:
+                        chat.id._serialized,
 
-// ======================================
-// AUTH
-// ======================================
+                        name:
+                        chat.name
 
-client.on(
+                    }));
 
-'authenticated',
+                    gruposCache = grupos;
 
-()=>{
+                    io.emit(
+                        'groups',
+                        grupos
+                    );
 
-console.log(
-'WhatsApp autenticado'
-);
+                    console.log(
 
-}
+                        `${grupos.length} grupos carregados`
 
-);
+                    );
 
+                }catch(err){
 
-// ======================================
-// FAILURE
-// ======================================
+                    console.log(
+                        'Erro ao carregar grupos'
+                    );
 
-client.on(
+                }
 
-'auth_failure',
+            },60000);
 
-(msg)=>{
+        }
 
-console.log(
-'ERRO AUTH:',
-msg
-);
-
-}
-
-);
+    );
 
 
-// ======================================
-// DISCONNECTED
-// ======================================
+    // =====================================
+    // DESCONECTADO
+    // =====================================
 
-client.on(
+    client.on(
 
-'disconnected',
+        'disconnected',
 
-(reason)=>{
+        (reason)=>{
 
-console.log(
-'WhatsApp desconectado:',
-reason
-);
+            console.log(
+                'WhatsApp desconectado:',
+                reason
+            );
 
-setTimeout(()=>{
+        }
 
-iniciarWhatsApp();
-
-},5000);
-
-}
-
-);
+    );
 
 
-// ======================================
-// INITIALIZE
-// ======================================
+    // =====================================
+    // START
+    // =====================================
 
-client.initialize();
+    client.initialize();
 
 }
 
 
-// ======================================
+// =====================================
 // SOCKET
-// ======================================
+// =====================================
 
 io.on(
 
-'connection',
+    'connection',
 
-(socket)=>{
+    (socket)=>{
 
-console.log(
-'Novo cliente conectado'
+    if(gruposCache.length > 0){
+
+    socket.emit(
+        'groups',
+        gruposCache
+    );
+
+}
+
+        console.log(
+            'Novo cliente conectado'
+        );
+
+
+        // =====================================
+        // STATUS
+        // =====================================
+
+        if(client){
+
+            try{
+
+                if(client.info){
+
+                    socket.emit(
+                        'ready'
+                    );
+
+                }
+
+            }catch(e){
+
+                console.log(e);
+
+            }
+
+        }
+
+
+        // =====================================
+        // DISPARO GRUPOS
+        // =====================================
+
+        socket.on(
+
+            'send-message',
+
+            async(data)=>{
+
+                pausado = false;
+
+                try{
+
+                    const {
+
+                        grupos,
+
+                        mensagem,
+
+                        imagem
+
+                    } = data;
+
+                    console.log(
+
+                        `Iniciando envio grupos (${grupos.length})`
+
+                    );
+
+                    let enviados = 0;
+
+                    let falhados = 0;
+
+                    const total =
+                    grupos.length;
+
+
+                    for(const grupoId of grupos){
+
+                        if(pausado){
+
+                            console.log(
+                                'Envio pausado'
+                            );
+
+                            break;
+
+                        }
+
+                        try{
+
+                            const chat =
+
+                            await client.getChatById(
+                                grupoId
+                            );
+
+
+                            await chat.sendStateTyping();
+
+
+                            await delay(
+
+                                randomDelay(
+                                    3000,
+                                    5000
+                                )
+
+                            );
+
+
+                            // =====================================
+                            // IMAGEM
+                            // =====================================
+
+                            if(imagem){
+
+                                const media =
+
+                                new MessageMedia(
+
+                                    imagem.mimetype,
+
+                                    imagem.data,
+
+                                    imagem.filename
+
+                                );
+
+                                await client.sendMessage(
+
+                                    grupoId,
+
+                                    media,
+
+                                    {
+
+                                        caption:
+                                        mensagem
+
+                                    }
+
+                                );
+
+                            }
+
+                            // =====================================
+                            // TEXTO
+                            // =====================================
+
+                            else{
+
+                                await client.sendMessage(
+
+                                    grupoId,
+
+                                    mensagem
+
+                                );
+
+                            }
+
+
+                            enviados++;
+
+                            console.log(
+
+                                `Mensagem enviada grupo ${grupoId}`
+
+                            );
+
+
+                            io.emit(
+
+                                'group-progress',
+
+                                {
+
+                                    enviados,
+                                    falhados,
+                                    total,
+
+                                    restante:
+
+                                    total -
+
+                                    enviados -
+
+                                    falhados
+
+                                }
+
+                            );
+
+
+                            await chat.clearState();
+
+
+                            await delay(
+
+                                randomDelay(
+                                    15000,
+                                    25000
+                                )
+
+                            );
+
+                        }catch(err){
+
+                            falhados++;
+
+                            console.log(
+                                'Erro grupo:',
+                                err
+                            );
+
+                        }
+
+                    }
+
+                    console.log(
+                        'Disparo grupos finalizado'
+                    );
+
+                }catch(err){
+
+                    console.log(err);
+
+                }
+
+            }
+
+        );
+
+
+        // =====================================
+        // DISPARO LISTA
+        // =====================================
+
+        socket.on(
+
+            'send-list',
+
+            async(data)=>{
+
+                pausado = false;
+
+                try{
+
+                    const {
+
+                        numeros,
+
+                        mensagem,
+
+                        imagem
+
+                    } = data;
+
+                    console.log(
+
+                        `Iniciando lista (${numeros.length})`
+
+                    );
+
+                    let enviados = 0;
+
+                    let falhados = 0;
+
+                    const total =
+                    numeros.length;
+
+
+                    for(let numero of numeros){
+
+                        if(pausado){
+
+                            console.log(
+                                'Lista pausada'
+                            );
+
+                            break;
+
+                        }
+
+                        try{
+
+                            // =====================================
+                            // LIMPAR
+                            // =====================================
+
+                            numero = numero
+
+                            .replace(/\D/g,'')
+
+                            .trim();
+
+
+                            // =====================================
+                            // ADD 55
+                            // =====================================
+
+                            if(
+
+                                !numero.startsWith('55')
+
+                            ){
+
+                                numero =
+                                '55' + numero;
+
+                            }
+
+
+                            console.log(
+                                `Verificando ${numero}`
+                            );
+
+
+                            // =====================================
+                            // VALIDAR
+                            // =====================================
+
+                            const numberId =
+
+                            await client.getNumberId(
+                                numero
+                            );
+
+
+                            if(!numberId){
+
+                                falhados++;
+
+                                console.log(
+                                    `Número inválido ${numero}`
+                                );
+
+                                continue;
+
+                            }
+
+
+                            const chatId =
+                            numberId._serialized;
+
+
+                            await delay(
+
+                                randomDelay(
+                                    3000,
+                                    5000
+                                )
+
+                            );
+
+
+                            // =====================================
+                            // IMAGEM
+                            // =====================================
+
+                            if(imagem){
+
+                                const media =
+
+                                new MessageMedia(
+
+                                    imagem.mimetype,
+
+                                    imagem.data,
+
+                                    imagem.filename
+
+                                );
+
+                                await client.sendMessage(
+
+                                    chatId,
+
+                                    media,
+
+                                    {
+
+                                        caption:
+                                        mensagem
+
+                                    }
+
+                                );
+
+                            }
+
+                            // =====================================
+                            // TEXTO
+                            // =====================================
+
+                            else{
+
+                                await client.sendMessage(
+
+                                    chatId,
+
+                                    mensagem
+
+                                );
+
+                            }
+
+
+                            enviados++;
+
+                            console.log(
+                                `Mensagem enviada ${numero}`
+                            );
+
+
+                            io.emit(
+
+                                'list-progress',
+
+                                {
+
+                                    enviados,
+                                    falhados,
+                                    total,
+
+                                    restante:
+
+                                    total -
+
+                                    enviados -
+
+                                    falhados
+
+                                }
+
+                            );
+
+
+                            await delay(
+
+                                randomDelay(
+                                    12000,
+                                    18000
+                                )
+
+                            );
+
+                        }catch(err){
+
+                            falhados++;
+
+                            console.log(
+                                `Erro ${numero}`
+                            );
+
+                            console.log(err);
+
+                        }
+
+                    }
+
+                    console.log(
+                        'Disparo lista finalizado'
+                    );
+
+                }catch(err){
+
+                    console.log(err);
+
+                }
+
+            }
+
+        );
+
+
+        // =====================================
+        // PAUSAR
+        // =====================================
+
+        socket.on(
+
+            'pause',
+
+            ()=>{
+
+                pausado = true;
+
+                console.log(
+                    'Pausado manualmente'
+                );
+
+            }
+
+        );
+
+
+        // =====================================
+        // PAUSAR BOT
+        // =====================================
+
+        socket.on(
+
+            'pause-bot',
+
+            async()=>{
+
+                try{
+
+                    pausado = true;
+
+                    if(client){
+
+                        await client.destroy();
+
+                        console.log(
+                            'BOT PAUSADO'
+                        );
+
+                    }
+
+                }catch(e){
+
+                    console.log(e);
+
+                }
+
+            }
+
+        );
+
+
+        // =====================================
+        // START BOT
+        // =====================================
+
+        socket.on(
+
+            'start-bot',
+
+            async()=>{
+
+                try{
+
+                    if(!client){
+
+                        iniciarWhatsApp();
+
+                    }else{
+
+                        try{
+
+                            await client.destroy();
+
+                        }catch(e){}
+
+                        iniciarWhatsApp();
+
+                    }
+
+                    console.log(
+                        'BOT INICIADO'
+                    );
+
+                }catch(e){
+
+                    console.log(e);
+
+                }
+
+            }
+
+        );
+
+
+        // =====================================
+        // RELOAD QR
+        // =====================================
+
+        socket.on(
+
+            'reload-qr',
+
+            async()=>{
+
+                try{
+
+                    if(client){
+
+                        await client.destroy();
+
+                    }
+
+                    iniciarWhatsApp();
+
+                    console.log(
+                        'Reconectando'
+                    );
+
+                }catch(err){
+
+                    console.log(err);
+
+                }
+
+            }
+
+        );
+
+    }
+
 );
 
 
-// ======================================
-// STATUS
-// ======================================
-
-if(client){
-
-try{
-
-if(client.info){
-
-socket.emit(
-'ready'
-);
-
-}
-
-}catch(e){
-
-console.log(e);
-
-}
-
-}
-
-
-// ======================================
-// ENVIAR GRUPOS
-// ======================================
-
-socket.on(
-
-'send-message',
-
-async(data)=>{
-
-pausado = false;
-
-try{
-
-const {
-
-grupos,
-mensagem,
-imagem
-
-} = data;
-
-let enviados = 0;
-
-let falhados = 0;
-
-const total =
-grupos.length;
-
-
-for(const grupoId of grupos){
-
-if(pausado) break;
-
-try{
-
-const chat =
-
-await client.getChatById(
-grupoId
-);
-
-await client.sendPresenceAvailable();
-
-await chat.sendStateTyping();
-
-await delay(
-
-randomDelay(
-5000,
-10000
-)
-
-);
-
-
-// ======================================
-// IMAGEM
-// ======================================
-
-if(imagem){
-
-const media =
-
-new MessageMedia(
-
-imagem.mimetype,
-
-imagem.data,
-
-imagem.filename
-
-);
-
-await client.sendMessage(
-
-grupoId,
-
-media,
-
-{
-
-caption:
-mensagem
-
-}
-
-);
-
-}else{
-
-await client.sendMessage(
-
-grupoId,
-
-mensagem
-
-);
-
-}
-
-await chat.clearState();
-
-enviados++;
-
-io.emit(
-
-'group-progress',
-
-{
-
-enviados,
-falhados,
-total,
-
-restante:
-
-total -
-
-enviados -
-
-falhados
-
-}
-
-);
-
-await delay(
-
-randomDelay(
-25000,
-60000
-)
-
-);
-
-}catch(err){
-
-falhados++;
-
-console.log(err);
-
-}
-
-}
-
-}catch(err){
-
-console.log(err);
-
-}
-
-}
-
-);
-
-
-// ======================================
-// PAUSE
-// ======================================
-
-socket.on(
-
-'pause',
-
-()=>{
-
-pausado = true;
-
-console.log(
-'Pausado'
-);
-
-}
-
-);
-
-
-// ======================================
-// RELOAD QR
-// ======================================
-
-socket.on(
-
-'reload-qr',
-
-async()=>{
-
-try{
-
-if(client){
-
-await client.destroy();
-
-}
-
-iniciarWhatsApp();
-
-}catch(err){
-
-console.log(err);
-
-}
-
-}
-
-);
-
-}
-
-);
-
-
-// ======================================
+// =====================================
 // START
-// ======================================
+// =====================================
 
 iniciarWhatsApp();
 
 
-// ======================================
+// =====================================
 // SERVER
-// ======================================
+// =====================================
 
 server.listen(
 
-3000,
+    3000,
 
-()=>{
+    ()=>{
 
-console.log(
+        console.log(
 
-'Servidor rodando na porta 3000'
+            'Servidor rodando na porta 3000'
+
+        );
+
+    }
 
 );
 
-}
 
-);
-
-
-// ======================================
+// =====================================
 // DELAY
-// ======================================
+// =====================================
 
 function delay(ms){
 
-return new Promise(resolve=>{
+    return new Promise(resolve=>{
 
-setTimeout(resolve,ms);
+        setTimeout(resolve,ms);
 
-});
+    });
 
 }
 
 
-// ======================================
-// RANDOM
-// ======================================
+// =====================================
+// RANDOM DELAY
+// =====================================
 
 function randomDelay(min,max){
 
-return Math.floor(
+    return Math.floor(
 
-Math.random() *
+        Math.random() *
 
-(max - min + 1)
+        (max - min + 1)
 
-) + min;
+    ) + min;
 
 }
